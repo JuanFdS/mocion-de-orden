@@ -1,3 +1,100 @@
-[gd_scene format=3 uid="uid://cdu0pdab8ibpu"]
+[gd_scene load_steps=5 format=3 uid="uid://cdu0pdab8ibpu"]
+
+[ext_resource type="Script" path="res://Asamblea.gd" id="1_4bwin"]
+[ext_resource type="Script" path="res://ConfiguracionDelJuego.gd" id="1_lj83h"]
+[ext_resource type="Theme" uid="uid://cso6ppxd02rgv" path="res://Theme.tres" id="1_rfvxo"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_iqdiu"]
+load_path = "res://.godot/imported/Asamblea.png-52004e7fc7e6f0de6318eaf50ef01dc4.ctex"
 
 [node name="Asamblea" type="Node2D"]
+script = ExtResource("1_4bwin")
+
+[node name="ConfiguracionDelJuego" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("1_lj83h")
+velocidad_de_burbuja_de_dialogo = 10.0
+tiempo_hasta_que_se_borra_burbuja_de_dialogo = 8.0
+tiempo_entre_dialogos = 5.0
+mas_menos_tiempo_entre_dialogos = 1.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("CompressedTexture2D_iqdiu")
+centered = false
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Dialogos" type="Control" parent="CanvasLayer"]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme = ExtResource("1_rfvxo")
+
+[node name="Violeta" type="Control" parent="CanvasLayer/Dialogos"]
+layout_mode = 1
+anchor_right = 30.367
+anchor_bottom = 23.938
+offset_right = 103.32
+offset_bottom = 11.4799
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Uno" type="Control" parent="CanvasLayer/Dialogos/Violeta"]
+anchors_preset = 0
+offset_left = 168.0
+offset_top = 248.0
+offset_right = 323.0
+offset_bottom = 308.0
+
+[node name="Dos" type="Control" parent="CanvasLayer/Dialogos/Violeta"]
+anchors_preset = 0
+offset_left = 945.0
+offset_top = 182.0
+offset_right = 1094.0
+offset_bottom = 291.0
+
+[node name="Rojo" type="Control" parent="CanvasLayer/Dialogos"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Uno" type="Control" parent="CanvasLayer/Dialogos/Rojo"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 358.0
+offset_top = 206.0
+offset_right = 598.0
+offset_bottom = 341.0
+
+[node name="Dos" type="Control" parent="CanvasLayer/Dialogos/Rojo"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1148.0
+offset_top = 171.0
+offset_right = 1316.0
+offset_bottom = 273.0
+
+[node name="Celeste" type="Control" parent="CanvasLayer/Dialogos"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Uno" type="Control" parent="CanvasLayer/Dialogos/Celeste"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 667.0
+offset_top = 198.0
+offset_right = 866.0
+offset_bottom = 295.0
+
+[node name="Dos" type="Control" parent="CanvasLayer/Dialogos/Celeste"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1364.0
+offset_top = 184.0
+offset_right = 1566.0
+offset_bottom = 281.0

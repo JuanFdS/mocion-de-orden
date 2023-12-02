@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Mocion-de-orden"
-run/main_scene="res://MenuInicio/MenuInicio.tscn"
+run/main_scene="res://Asamblea.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 
 [autoload]
