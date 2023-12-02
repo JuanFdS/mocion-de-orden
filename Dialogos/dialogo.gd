@@ -3,7 +3,7 @@ extends RichTextLabel
 
 var velocidad_de_burbuja
 var tiempo_hasta_que_se_borra
-var texto
+var texto := ""
 
 func _ready():
 	layout_mode = 1

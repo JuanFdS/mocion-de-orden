@@ -16,9 +16,7 @@ config/features=PackedStringArray("4.2", "Forward Plus")
 
 [autoload]
 
-Score="*res://HUD/Score.gd"
 RuakeLayer="*res://addons/ruake/core/RuakeLayer.tscn"
-Musica="*res://Musica/musica.tscn"
 
 [display]
 
