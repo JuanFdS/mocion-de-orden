@@ -43,10 +43,10 @@ grow_vertical = 2
 
 [node name="Uno" type="Control" parent="CanvasLayer/Dialogos/Violeta"]
 anchors_preset = 0
-offset_left = 59.0
+offset_left = 168.0
 offset_top = 248.0
 offset_right = 323.0
-offset_bottom = 322.0
+offset_bottom = 308.0
 
 [node name="Dos" type="Control" parent="CanvasLayer/Dialogos/Violeta"]
 anchors_preset = 0

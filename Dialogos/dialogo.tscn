@@ -1,8 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://0vqpladtqkwp"]
+[gd_scene load_steps=7 format=3 uid="uid://0vqpladtqkwp"]
 
+[ext_resource type="Theme" uid="uid://cso6ppxd02rgv" path="res://Theme.tres" id="1_7oax5"]
 [ext_resource type="Script" path="res://Dialogos/dialogo.gd" id="1_8tedw"]
+[ext_resource type="Texture2D" uid="uid://cmsvv1ygup2ig" path="res://assets/Intervenciones/deAcuerdo.png" id="3_dd6pd"]
+[ext_resource type="Texture2D" uid="uid://brqsybllmjyn4" path="res://assets/Intervenciones/enContra.png" id="4_rv0k5"]
+[ext_resource type="Texture2D" uid="uid://b8y2jf5cid7b5" path="res://assets/Intervenciones/deAcuerdoHover.png" id="4_wxtcl"]
 
-[node name="Dialogo" type="RichTextLabel"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_l1ct1"]
+load_path = "res://.godot/imported/enContraHover.png-c4d953c83444d273271148f3827974a6.ctex"
+
+[node name="Dialogo" type="HBoxContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -10,6 +17,37 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "<null>"
-fit_content = true
+theme = ExtResource("1_7oax5")
+alignment = 2
 script = ExtResource("1_8tedw")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 1
+fit_content = true
+
+[node name="Intervenciones" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 100)
+layout_mode = 2
+alignment = 1
+
+[node name="DeAcuerdo" type="TextureButton" parent="Intervenciones"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture_normal = ExtResource("3_dd6pd")
+texture_pressed = ExtResource("4_wxtcl")
+texture_hover = ExtResource("4_wxtcl")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="EnContra" type="TextureButton" parent="Intervenciones"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture_normal = ExtResource("4_rv0k5")
+texture_pressed = SubResource("CompressedTexture2D_l1ct1")
+texture_hover = SubResource("CompressedTexture2D_l1ct1")
+ignore_texture_size = true
+stretch_mode = 0

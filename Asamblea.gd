@@ -14,8 +14,11 @@ var dialog_lines = RandomizedList.new([
 		"Como te ven, te tratan. Si te ven mal, te maltratan. Si te ven bien, te contratan",
 		"Anda pa' alla, bobo",
 		"Basta, chicos",
+		"Usted se tiene que arrepentir de lo que dijo",
+		"⚰️⚰️⚰️⚰️⚰️⚰️💀💀💀💀💀💀"
 	])
 var partidos = []
+var dialogos_en_curso = []
 
 func _process(delta):
 	pass
@@ -36,6 +39,12 @@ func hacer_decir_dialogo_a_alguno():
 	dialogo.velocidad_de_burbuja = config.velocidad_de_burbuja_de_dialogo
 	dialogo.texto = dialog_lines.next()
 	representante.add_child(dialogo)
+	
+	dialogos_en_curso.push_front(dialogo)
+	dialogo.intervenido.connect(func():
+		dialogos_en_curso.map(func(un_dialogo): un_dialogo.borrarse())
+	)
+	dialogo.borrado.connect(func(): dialogos_en_curso.erase(dialogo))
 	
 	var mas_menos_tiempo_entre_dialogos =\
 		config.mas_menos_tiempo_entre_dialogos
