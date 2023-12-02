@@ -3,7 +3,7 @@
 name: Deploy a itch
 
 env:
-  GODOT_VERSION: 4.1.2
+  GODOT_VERSION: 4.2
 
 # Controls when the action will run. 
 on:
@@ -20,7 +20,7 @@ jobs:
     name: Web Export
     runs-on: ubuntu-latest
     container:
-      image: barichello/godot-ci:4.1.2
+      image: barichello/godot-ci:4.2
     steps:
       - name: Setup
         run: |
@@ -39,6 +39,6 @@ jobs:
         env:
           BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
           CHANNEL: web
-          ITCH_GAME: maga-y-los-lapices
-          ITCH_USER: tenpines
+          ITCH_GAME: mocion-de-orden
+          ITCH_USER: JuanFdS
           PACKAGE: build/web
