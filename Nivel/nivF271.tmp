@@ -1,0 +1,448 @@
+[gd_scene load_steps=36 format=3 uid="uid://cogo8xspc0igg"]
+
+[ext_resource type="Script" path="res://Nivel/nivel.gd" id="1_lb23u"]
+[ext_resource type="PackedScene" uid="uid://dvuw6by5nclkt" path="res://Nivel/Obstaculos/obstaculo.tscn" id="2_2kk4d"]
+[ext_resource type="Script" path="res://Spawner.gd" id="3_v5dn7"]
+[ext_resource type="Script" path="res://Jugador/Jugador.gd" id="4_p6d2j"]
+[ext_resource type="Texture2D" uid="uid://b1auc3rwc3j7p" path="res://assets/maga/maga-spritesheet.png" id="5_gf7v2"]
+[ext_resource type="Script" path="res://Camera2D.gd" id="6_vbc5u"]
+[ext_resource type="Script" path="res://Marker2D.gd" id="7_06pcf"]
+[ext_resource type="PackedScene" uid="uid://cs5dbj5381owl" path="res://collecionable.tscn" id="8_2fs28"]
+[ext_resource type="LabelSettings" uid="uid://drqsuxmc8e4sd" path="res://label_settings.tres" id="9_umg7u"]
+[ext_resource type="Script" path="res://HUD/Puntaje.gd" id="10_nf6xc"]
+[ext_resource type="Script" path="res://HUD/DisplayTiempo.gd" id="11_g1pg3"]
+[ext_resource type="Script" path="res://Nivel/ParallaxBackground.gd" id="12_v6me5"]
+[ext_resource type="Texture2D" uid="uid://dok27nl0fnacl" path="res://assets/imported-parallax-background/Layers/layer05_Clouds.png" id="13_i0m2r"]
+[ext_resource type="Texture2D" uid="uid://c40q4dnepfcos" path="res://assets/imported-parallax-background/Layers/layer04_Hills_2.png" id="14_qrbxi"]
+[ext_resource type="Texture2D" uid="uid://olrikkqqmk0p" path="res://assets/imported-parallax-background/Layers/layer03_Hills_1.png" id="15_q200l"]
+[ext_resource type="Texture2D" uid="uid://jc15bkxfjajc" path="res://assets/imported-parallax-background/Layers/layer02_Trees.png" id="16_0ol3c"]
+[ext_resource type="Texture2D" uid="uid://dvytnmwc7dnkq" path="res://assets/imported-parallax-background/Layers/layer01_Ground.png" id="17_0mfwc"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_h24tf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l7223"]
+size = Vector2(5000, 200)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_txsiw"]
+size = Vector2(50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ugot5"]
+atlas = ExtResource("5_gf7v2")
+region = Rect2(935, 1216, 545, 916)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mie81"]
+size = Vector2(81, 156)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ftpp1"]
+size = Vector2(112, 91)
+
+[sub_resource type="Animation" id="Animation_fd5b5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(935, 1216, 545, 916)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(36.75, 49)]
+}
+
+[sub_resource type="Animation" id="Animation_w3ym7"]
+resource_name = "corriendo"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(935, 1216, 545, 916), Rect2(1497, 1195, 633, 919), Rect2(935, 1216, 545, 916), Rect2(2158, 1186, 633, 942)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(36.75, 49)]
+}
+
+[sub_resource type="Animation" id="Animation_2ygbp"]
+resource_name = "deslizando"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(4395, 1362, 869, 785)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(36.75, 83)]
+}
+
+[sub_resource type="Animation" id="Animation_rkjrt"]
+resource_name = "quieta"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(935, 1216, 545, 916)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(36.75, 49)]
+}
+
+[sub_resource type="Animation" id="Animation_y5trp"]
+resource_name = "saltando"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(2895, 999, 677, 871)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(36.75, 49)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j0enm"]
+_data = {
+"RESET": SubResource("Animation_fd5b5"),
+"corriendo": SubResource("Animation_w3ym7"),
+"deslizando": SubResource("Animation_2ygbp"),
+"quieta": SubResource("Animation_rkjrt"),
+"saltando": SubResource("Animation_y5trp")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n28na"]
+size = Vector2(105, 188)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_05b7q"]
+size = Vector2(32, 32)
+
+[sub_resource type="LabelSettings" id="LabelSettings_v844o"]
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_jnjg1"]
+font_size = 50
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Gradient" id="Gradient_n3rya"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.392157, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ti0np"]
+gradient = SubResource("Gradient_n3rya")
+width = 1920
+height = 1080
+
+[node name="Nivel" type="Node2D"]
+script = ExtResource("1_lb23u")
+
+[node name="Piso" type="StaticBody2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(52, 644)
+collision_layer = 2147483648
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Piso"]
+visible = false
+position = Vector2(-719, -9)
+scale = Vector2(3467, 250)
+texture = SubResource("PlaceholderTexture2D_h24tf")
+centered = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Piso"]
+position = Vector2(223, 100)
+shape = SubResource("RectangleShape2D_l7223")
+
+[node name="Obstaculo2" parent="." instance=ExtResource("2_2kk4d")]
+position = Vector2(734, 552)
+
+[node name="Spawner" type="Node2D" parent="." node_paths=PackedStringArray("nivel")]
+unique_name_in_owner = true
+position = Vector2(1161, 568)
+script = ExtResource("3_v5dn7")
+nivel = NodePath("..")
+distancia_entre_elementos = 500.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Spawner"]
+visible = false
+texture = SubResource("PlaceholderTexture2D_txsiw")
+metadata/_edit_lock_ = true
+
+[node name="Timer" type="Timer" parent="Spawner"]
+autostart = true
+
+[node name="PosicionesDeSpawn" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(1200, 594)
+
+[node name="Abajo" type="Marker2D" parent="PosicionesDeSpawn"]
+position = Vector2(2.08165e-12, -50)
+
+[node name="Medio" type="Marker2D" parent="PosicionesDeSpawn"]
+position = Vector2(2.08165e-12, -176)
+
+[node name="Alto" type="Marker2D" parent="PosicionesDeSpawn"]
+position = Vector2(2.08165e-12, -287)
+
+[node name="Jugador" type="CharacterBody2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(20, 498)
+collision_mask = 2147483648
+script = ExtResource("4_p6d2j")
+
+[node name="Sprite2D" type="Sprite2D" parent="Jugador"]
+position = Vector2(36.75, 49)
+scale = Vector2(0.2, 0.2)
+texture = SubResource("AtlasTexture_ugot5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Jugador"]
+position = Vector2(38.5, 60)
+shape = SubResource("RectangleShape2D_mie81")
+
+[node name="CollisionShapeDeslizando" type="CollisionShape2D" parent="Jugador"]
+visible = false
+position = Vector2(36, 96.5)
+shape = SubResource("RectangleShape2D_ftpp1")
+
+[node name="Camera2D" type="Camera2D" parent="Jugador"]
+unique_name_in_owner = true
+limit_left = 0
+limit_top = -300
+limit_bottom = 0
+script = ExtResource("6_vbc5u")
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Jugador/Camera2D"]
+position = Vector2(1141, 70)
+remote_path = NodePath("../../../Spawner")
+update_rotation = false
+update_scale = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Jugador"]
+libraries = {
+"": SubResource("AnimationLibrary_j0enm")
+}
+
+[node name="Marker2D" type="Marker2D" parent="Jugador"]
+position = Vector2(32, 142)
+script = ExtResource("7_06pcf")
+
+[node name="AreaDeRecoleccion" type="Area2D" parent="Jugador"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Jugador/AreaDeRecoleccion"]
+position = Vector2(37.5, 50)
+shape = SubResource("RectangleShape2D_n28na")
+
+[node name="Collecionable" parent="." instance=ExtResource("8_2fs28")]
+position = Vector2(312, 521)
+
+[node name="Collecionable2" parent="." instance=ExtResource("8_2fs28")]
+position = Vector2(423, 521)
+
+[node name="Collecionable3" parent="." instance=ExtResource("8_2fs28")]
+position = Vector2(540, 521)
+
+[node name="Collecionable4" parent="." instance=ExtResource("8_2fs28")]
+position = Vector2(840, 395)
+
+[node name="HUD" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD"]
+offset_right = 69.0
+offset_bottom = 42.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+
+[node name="TableroDePuntaje" type="HBoxContainer" parent="HUD/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="HUD/MarginContainer/TableroDePuntaje"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_05b7q")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="HUD/MarginContainer/TableroDePuntaje"]
+layout_mode = 2
+text = "x"
+label_settings = SubResource("LabelSettings_v844o")
+
+[node name="Puntaje" type="Label" parent="HUD/MarginContainer/TableroDePuntaje"]
+layout_mode = 2
+text = "0"
+label_settings = ExtResource("9_umg7u")
+script = ExtResource("10_nf6xc")
+
+[node name="PilaDeLapices" type="Control" parent="HUD"]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = 26.0
+offset_top = 26.0
+offset_right = 26.0
+offset_bottom = 66.0
+
+[node name="MarginContainer3" type="MarginContainer" parent="HUD"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -69.0
+offset_bottom = 42.0
+grow_horizontal = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+
+[node name="Label" type="Label" parent="HUD/MarginContainer3"]
+layout_mode = 2
+text = "1:00"
+label_settings = SubResource("LabelSettings_jnjg1")
+script = ExtResource("11_g1pg3")
+
+[node name="Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 60.0
+autostart = true
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+offset = Vector2(0, -450)
+transform = Transform2D(1, 0, 0, 1, 0, -450)
+script = ExtResource("12_v6me5")
+
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer5"]
+texture = SubResource("GradientTexture2D_ti0np")
+centered = false
+
+[node name="Nubes" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(0, 70)
+motion_scale = Vector2(0.2, 1)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Nubes"]
+position = Vector2(0, 37)
+texture = ExtResource("13_i0m2r")
+centered = false
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.05, 0.05)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4"]
+position = Vector2(0, 167)
+texture = ExtResource("14_qrbxi")
+centered = false
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.1, 0.1)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
+position = Vector2(0, 299)
+texture = ExtResource("15_q200l")
+centered = false
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.7, 0.7)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(0, 94)
+texture = ExtResource("16_0ol3c")
+centered = false
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(1920, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3"]
+position = Vector2(0, 7)
+texture = ExtResource("17_0mfwc")
+centered = false
+offset = Vector2(0, 150)
+
+[connection signal="area_entered" from="Jugador/AreaDeRecoleccion" to="Jugador" method="_on_area_de_recoleccion_area_entered"]
+[connection signal="fue_agarrado" from="Collecionable" to="." method="_on_collecionable_fue_agarrado"]
+[connection signal="fue_agarrado" from="Collecionable2" to="." method="_on_collecionable_fue_agarrado"]
+[connection signal="fue_agarrado" from="Collecionable3" to="." method="_on_collecionable_fue_agarrado"]
+[connection signal="fue_agarrado" from="Collecionable4" to="." method="_on_collecionable_fue_agarrado"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
