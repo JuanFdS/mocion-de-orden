@@ -40,5 +40,5 @@ jobs:
           BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
           CHANNEL: web
           ITCH_GAME: mocion-de-orden
-          ITCH_USER: JuanFdS
+          ITCH_USER: j9794
           PACKAGE: build/web
