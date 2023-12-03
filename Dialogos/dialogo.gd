@@ -11,6 +11,8 @@ var borrandose = false
 
 signal borrado
 signal intervenido
+signal fue_aprobado
+signal fue_rechazado
 
 func _ready():
 	%Intervenciones/DeAcuerdo.pressed.connect(self.reconfirmado)
@@ -27,7 +29,7 @@ func _ready():
 		text_label.text = texto
 	get_tree().create_timer(tiempo_hasta_que_se_borra).timeout.connect(self.paso_mucho_tiempo)
 
-func _physics_process(delta):
+func _process(delta):
 	if Engine.is_editor_hint():
 		return
 	if borrandose:
@@ -69,10 +71,14 @@ func paso_mucho_tiempo():
 	borrarse()
 
 func reconfirmado():
+	fue_aprobado.emit()
 	intervenirse_con(Color.GREEN)
+	
 
 func rechazado():
+	fue_rechazado.emit()
 	intervenirse_con(Color.RED)
+	
 
 func intervenirse_con(color: Color):
 	if(borrandose):

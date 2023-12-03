@@ -29,8 +29,8 @@ func _ready():
 
 func empezar_asamblea():
 	hacer_decir_dialogo_a_alguno()
-	
-func hacer_decir_dialogo_a_alguno():
+
+func crear_dialogo():
 	var config := %ConfiguracionDelJuego
 	var partido = partidos.next()
 	var representante = partido.get_children().pick_random()
@@ -44,8 +44,14 @@ func hacer_decir_dialogo_a_alguno():
 	dialogo.intervenido.connect(func():
 		dialogos_en_curso.map(func(un_dialogo): un_dialogo.borrarse())
 	)
+	dialogo.fue_aprobado.connect(func(): %Animosidad.mejorar(10))
+	dialogo.fue_rechazado.connect(func(): %Animosidad.empeorar(10))
 	dialogo.borrado.connect(func(): dialogos_en_curso.erase(dialogo))
 	
+	return dialogo
+
+func obtener_tiempo_hasta_proximo_dialogo():
+	var config := %ConfiguracionDelJuego
 	var mas_menos_tiempo_entre_dialogos =\
 		config.mas_menos_tiempo_entre_dialogos
 	var tiempo_hasta_proximo_dialogo =\
@@ -53,7 +59,18 @@ func hacer_decir_dialogo_a_alguno():
 			-mas_menos_tiempo_entre_dialogos,
 			mas_menos_tiempo_entre_dialogos)
 
-	await get_tree().create_timer(tiempo_hasta_proximo_dialogo).timeout
+	return tiempo_hasta_proximo_dialogo
+
+func hacer_decir_dialogo_a_alguno():
+	var config := %ConfiguracionDelJuego
+	
+	var dialogo = crear_dialogo()
+	var tiempo_hasta_proximo_dialogo = obtener_tiempo_hasta_proximo_dialogo()
+
+	await Await.any([
+		dialogo.borrado,
+		get_tree().create_timer(tiempo_hasta_proximo_dialogo).timeout
+	])
 	hacer_decir_dialogo_a_alguno()
 
 class RandomizedList:

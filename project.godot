@@ -8,6 +8,10 @@
 
 config_version=5
 
+[addons]
+
+ruake/layer=999999
+
 [application]
 
 config/name="Mocion-de-orden"
@@ -17,6 +21,7 @@ config/features=PackedStringArray("4.2", "Forward Plus")
 [autoload]
 
 RuakeLayer="*res://addons/ruake/core/RuakeLayer.tscn"
+Await="*res://Utils/Await.gd"
 
 [display]
 

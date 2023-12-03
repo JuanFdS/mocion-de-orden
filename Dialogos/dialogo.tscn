@@ -35,6 +35,7 @@ layout_mode = 2
 alignment = 1
 
 [node name="DeAcuerdo" type="TextureButton" parent="Intervenciones"]
+visible = false
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 texture_normal = ExtResource("3_dd6pd")
@@ -44,6 +45,7 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="EnContra" type="TextureButton" parent="Intervenciones"]
+visible = false
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 texture_normal = ExtResource("4_rv0k5")
