@@ -1,3 +1,3 @@
-# Maga y los lapices
+# Mocion de orden
 
-https://tenpines.itch.io/maga-y-los-lapices
+https://j9794.itch.io/mocion-de-orden
