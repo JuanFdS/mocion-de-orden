@@ -1,25 +1,29 @@
-# This is a basic workflow to help you get started with Actions
+# Hola!, esta action de github sirve para subir el juego a itch automaticamente con cada push a main.
+# Pasos para hacerlo andar:
+# - Crea tu proyecto en itch
+# - Creá una API KEY en itch, eso lo podes crear acá: https://itch.io/user/settings/api-keys
+# - Crear/copiar este archivo a .github/workflows/deploy-to-itch.yml en tu repo.
+# - En Settings > Secrets and variables > Actions, creá un repository secret que se llame BUTLER_CREDENTIALS y ahí pone la API KEY de itch
+# - Hay 2 líneas de este archivo que tenés que reemplazar por tu usuario de itch y el nombre de tu proyecto, scrollea que hay un comentario antes de cada línea que hay que cambiar.
 
 name: Deploy a itch
 
 env:
+  # Si usas otra versión de godot cambiá acá y en donde aparece el siguiente comentario
   GODOT_VERSION: 4.2
 
-# Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches: [ main ]
 
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   export-web:
     name: Web Export
     runs-on: ubuntu-latest
     container:
+      # acá también cambiá la versión de godot si no estas usando la misma
       image: barichello/godot-ci:4.2
     steps:
       - name: Setup
@@ -39,6 +43,8 @@ jobs:
         env:
           BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
           CHANNEL: web
+          # Acá cambia mocion-de-orden por el nombre de tu juego
           ITCH_GAME: mocion-de-orden
+          # Y acá cambia j9794 por tu usuario de itch
           ITCH_USER: j9794
           PACKAGE: build/web
