@@ -4,10 +4,16 @@ const SILLAZOS = 0.0
 const PAZ = 100.0
 var animosidad = (SILLAZOS + PAZ) / 2.0
 
+signal sillazos_alcanzados
+
 func _ready():
 	min_value = SILLAZOS
 	max_value = PAZ
 	value = animosidad
+	value_changed.connect(func(value):
+		if(value == SILLAZOS):
+			sillazos_alcanzados.emit()
+	)
 
 func mejorar(cantidad):
 	animosidad = move_toward(animosidad, PAZ, cantidad)

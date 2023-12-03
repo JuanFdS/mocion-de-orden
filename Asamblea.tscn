@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cdu0pdab8ibpu"]
+[gd_scene load_steps=25 format=3 uid="uid://cdu0pdab8ibpu"]
 
 [ext_resource type="Script" path="res://Asamblea.gd" id="1_4bwin"]
 [ext_resource type="Script" path="res://ConfiguracionDelJuego.gd" id="1_lj83h"]
@@ -8,6 +8,14 @@
 [ext_resource type="Texture2D" uid="uid://n70oraguqps4" path="res://assets/Animosidad/sillazos.png" id="6_egw6h"]
 [ext_resource type="Script" path="res://Animosidad.gd" id="6_l3xkf"]
 [ext_resource type="Texture2D" uid="uid://cqw3ng3b2cpro" path="res://assets/Animosidad/paz.png" id="7_djrij"]
+[ext_resource type="Texture2D" uid="uid://godadma2u345" path="res://assets/reloj.png" id="9_ugv1a"]
+[ext_resource type="Script" path="res://Reloj.gd" id="10_7wo0l"]
+[ext_resource type="Texture2D" uid="uid://dhxo3l55ljl2w" path="res://assets/mano.png" id="10_uegrn"]
+[ext_resource type="Script" path="res://Sillazos.gd" id="12_bl25u"]
+[ext_resource type="Texture2D" uid="uid://jv2ydlypoy5x" path="res://assets/sillazos/silla.png" id="12_rknea"]
+[ext_resource type="Texture2D" uid="uid://bnrhxdhgbubly" path="res://assets/sillazos/libro.png" id="13_t3wnu"]
+[ext_resource type="Texture2D" uid="uid://4dkwkq03t58" path="res://assets/sillazos/pilonDeHojas.png" id="14_dvetx"]
+[ext_resource type="Texture2D" uid="uid://cgjkaxkvs84s5" path="res://assets/sillazos/chaboncin.png" id="15_udjsh"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_iqdiu"]
 load_path = "res://.godot/imported/Asamblea.png-52004e7fc7e6f0de6318eaf50ef01dc4.ctex"
@@ -18,6 +26,102 @@ texture_margin_top = 36.0
 texture_margin_bottom = 36.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2bt6u"]
+
+[sub_resource type="Animation" id="Animation_bdyu3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect2:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DirectionalLight2D:energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_0hu0n"]
+resource_name = "sillazos"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.5, 1.5), Vector2(1, 1), Vector2(1.5, 1.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect2:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.5, 1.5), Vector2(1, 1), Vector2(1.5, 1.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DirectionalLight2D:energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_guhnd"]
+_data = {
+"RESET": SubResource("Animation_bdyu3"),
+"sillazos": SubResource("Animation_0hu0n")
+}
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hpxvb"]
+particles_animation = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="LabelSettings" id="LabelSettings_japjy"]
+font_size = 80
+font_color = Color(0, 0, 0, 1)
+outline_size = 10
 
 [node name="Asamblea" type="Node2D"]
 script = ExtResource("1_4bwin")
@@ -188,3 +292,201 @@ scale = Vector2(1.3, 1.3)
 texture = ExtResource("7_djrij")
 expand_mode = 1
 stretch_mode = 5
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+offset_left = 655.0
+offset_top = 766.0
+offset_right = 953.0
+offset_bottom = 1456.0
+rotation = 0.357792
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("10_uegrn")
+
+[node name="Reloj" type="TextureProgressBar" parent="CanvasLayer"]
+unique_name_in_owner = true
+offset_left = 528.0
+offset_top = 868.0
+offset_right = 728.0
+offset_bottom = 1068.0
+scale = Vector2(0.6, 0.6)
+pivot_offset = Vector2(100, 100)
+step = 0.0
+fill_mode = 5
+texture_under = ExtResource("9_ugv1a")
+texture_progress = ExtResource("9_ugv1a")
+tint_progress = Color(0, 0, 0, 0.392157)
+script = ExtResource("10_7wo0l")
+
+[node name="Sillazos" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+visible = false
+script = ExtResource("12_bl25u")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sillazos"]
+libraries = {
+"": SubResource("AnimationLibrary_guhnd")
+}
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="Sillazos"]
+position = Vector2(144, 58)
+color = Color(0.976471, 0, 0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="Sillazos"]
+offset_left = 144.0
+offset_top = 58.0
+offset_right = 359.0
+offset_bottom = 273.0
+pivot_offset = Vector2(100, 100)
+texture = ExtResource("6_egw6h")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="Sillazos"]
+offset_left = 1573.0
+offset_top = 58.0
+offset_right = 1788.0
+offset_bottom = 273.0
+pivot_offset = Vector2(100, 100)
+texture = ExtResource("6_egw6h")
+expand_mode = 1
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Sillazos"]
+position = Vector2(-79, 773)
+emitting = false
+amount = 4
+lifetime = 5.0
+explosiveness = 0.3
+randomness = 0.17
+lifetime_randomness = 0.41
+texture = ExtResource("12_rknea")
+direction = Vector2(1, -1)
+spread = 30.0
+gravity = Vector2(0, 500)
+initial_velocity_min = 1000.0
+initial_velocity_max = 1000.0
+angular_velocity_min = 50.0
+angular_velocity_max = 200.0
+scale_amount_min = 0.7
+
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="Sillazos"]
+material = SubResource("CanvasItemMaterial_hpxvb")
+position = Vector2(1998, 717)
+emitting = false
+amount = 4
+lifetime = 5.0
+explosiveness = 0.3
+randomness = 0.17
+lifetime_randomness = 0.41
+texture = ExtResource("12_rknea")
+direction = Vector2(-1, -1)
+spread = 30.0
+gravity = Vector2(0, 500)
+initial_velocity_min = 1000.0
+initial_velocity_max = 1000.0
+angular_velocity_min = 50.0
+angular_velocity_max = 200.0
+scale_amount_min = 0.7
+anim_offset_max = 1.0
+
+[node name="CPUParticles2D3" type="CPUParticles2D" parent="Sillazos"]
+position = Vector2(-79, 773)
+emitting = false
+amount = 2
+lifetime = 5.0
+explosiveness = 0.3
+randomness = 0.17
+lifetime_randomness = 0.41
+texture = ExtResource("13_t3wnu")
+direction = Vector2(1, -1)
+spread = 30.0
+gravity = Vector2(0, 500)
+initial_velocity_min = 1000.0
+initial_velocity_max = 1000.0
+angular_velocity_min = 50.0
+angular_velocity_max = 200.0
+scale_amount_min = 0.7
+
+[node name="CPUParticles2D4" type="CPUParticles2D" parent="Sillazos"]
+material = SubResource("CanvasItemMaterial_hpxvb")
+position = Vector2(1998, 717)
+emitting = false
+amount = 2
+lifetime = 5.0
+explosiveness = 0.3
+randomness = 0.17
+lifetime_randomness = 0.41
+texture = ExtResource("13_t3wnu")
+direction = Vector2(-1, -1)
+spread = 30.0
+gravity = Vector2(0, 500)
+initial_velocity_min = 1000.0
+initial_velocity_max = 1000.0
+angular_velocity_min = 50.0
+angular_velocity_max = 200.0
+scale_amount_min = 0.7
+anim_offset_max = 1.0
+
+[node name="CPUParticles2D5" type="CPUParticles2D" parent="Sillazos"]
+position = Vector2(-79, 773)
+emitting = false
+amount = 3
+lifetime = 5.0
+explosiveness = 0.3
+randomness = 0.17
+lifetime_randomness = 0.41
+texture = ExtResource("14_dvetx")
+direction = Vector2(1, -1)
+spread = 30.0
+gravity = Vector2(0, 500)
+initial_velocity_min = 1000.0
+initial_velocity_max = 1000.0
+angular_velocity_min = 50.0
+angular_velocity_max = 200.0
+scale_amount_min = 0.7
+
+[node name="CPUParticles2D6" type="CPUParticles2D" parent="Sillazos"]
+material = SubResource("CanvasItemMaterial_hpxvb")
+position = Vector2(1998, 717)
+emitting = false
+amount = 3
+lifetime = 5.0
+explosiveness = 0.3
+randomness = 0.17
+lifetime_randomness = 0.41
+texture = ExtResource("14_dvetx")
+direction = Vector2(-1, -1)
+spread = 30.0
+gravity = Vector2(0, 500)
+initial_velocity_min = 1000.0
+initial_velocity_max = 1000.0
+angular_velocity_min = 50.0
+angular_velocity_max = 200.0
+scale_amount_min = 0.7
+anim_offset_max = 1.0
+
+[node name="CPUParticles2D8" type="CPUParticles2D" parent="Sillazos"]
+material = SubResource("CanvasItemMaterial_hpxvb")
+position = Vector2(1998, 717)
+emitting = false
+amount = 1
+lifetime = 10.0
+explosiveness = 0.3
+randomness = 0.17
+lifetime_randomness = 0.41
+texture = ExtResource("15_udjsh")
+direction = Vector2(-1, -1)
+spread = 30.0
+gravity = Vector2(0, 500)
+initial_velocity_min = 1000.0
+initial_velocity_max = 1000.0
+angular_velocity_min = 50.0
+angular_velocity_max = 200.0
+scale_amount_min = 0.7
+anim_offset_max = 1.0
+
+[node name="Label" type="Label" parent="Sillazos"]
+offset_left = 452.0
+offset_top = 99.0
+offset_right = 1497.0
+offset_bottom = 251.0
+text = "SILLAZOS EN LA ASAMBLEA"
+label_settings = SubResource("LabelSettings_japjy")

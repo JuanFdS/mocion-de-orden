@@ -1,0 +1,18 @@
+[gd_resource type="AnimatedTexture" load_steps=5 format=3 uid="uid://kkc70s67nok3"]
+
+[ext_resource type="Texture2D" uid="uid://cgjkaxkvs84s5" path="res://assets/sillazos/chaboncin.png" id="1_aprt3"]
+[ext_resource type="Texture2D" uid="uid://bnrhxdhgbubly" path="res://assets/sillazos/libro.png" id="2_imyl7"]
+[ext_resource type="Texture2D" uid="uid://4dkwkq03t58" path="res://assets/sillazos/pilonDeHojas.png" id="3_6rnkm"]
+[ext_resource type="Texture2D" uid="uid://jv2ydlypoy5x" path="res://assets/sillazos/silla.png" id="4_1o0bb"]
+
+[resource]
+resource_local_to_scene = true
+frames = 4
+speed_scale = 0.0
+frame_0/texture = ExtResource("1_aprt3")
+frame_1/texture = ExtResource("2_imyl7")
+frame_1/duration = 1.0
+frame_2/texture = ExtResource("3_6rnkm")
+frame_2/duration = 1.0
+frame_3/texture = ExtResource("4_1o0bb")
+frame_3/duration = 1.0

@@ -14,16 +14,18 @@ var dialog_lines = RandomizedList.new([
 		"Como te ven, te tratan. Si te ven mal, te maltratan. Si te ven bien, te contratan",
 		"Anda pa' alla, bobo",
 		"Basta, chicos",
-		"Usted se tiene que arrepentir de lo que dijo",
-		"⚰️⚰️⚰️⚰️⚰️⚰️💀💀💀💀💀💀"
+		"Usted se tiene que arrepentir de lo que dijo"
 	])
 var partidos = []
 var dialogos_en_curso = []
-
-func _process(delta):
-	pass
+var sillazos = false
 
 func _ready():
+	%Animosidad.sillazos_alcanzados.connect(func():
+		if(not sillazos):
+			sillazos = true
+			%Sillazos.activar()
+	)
 	partidos = RandomizedList.new(%Dialogos.get_children())
 	empezar_asamblea()
 
@@ -42,13 +44,18 @@ func crear_dialogo():
 	
 	dialogos_en_curso.push_front(dialogo)
 	dialogo.intervenido.connect(func():
+		self.dialogo_fue_intervenido()
 		dialogos_en_curso.map(func(un_dialogo): un_dialogo.borrarse())
 	)
-	dialogo.fue_aprobado.connect(func(): %Animosidad.mejorar(10))
-	dialogo.fue_rechazado.connect(func(): %Animosidad.empeorar(10))
 	dialogo.borrado.connect(func(): dialogos_en_curso.erase(dialogo))
 	
 	return dialogo
+
+func dialogo_fue_intervenido():
+	var reloj = %Reloj
+	if(reloj.esta_esperando()):
+		%Animosidad.empeorar(20)
+	reloj.esperar(5)
 
 func obtener_tiempo_hasta_proximo_dialogo():
 	var config := %ConfiguracionDelJuego
@@ -62,6 +69,8 @@ func obtener_tiempo_hasta_proximo_dialogo():
 	return tiempo_hasta_proximo_dialogo
 
 func hacer_decir_dialogo_a_alguno():
+	if(sillazos):
+		return
 	var config := %ConfiguracionDelJuego
 	
 	var dialogo = crear_dialogo()
