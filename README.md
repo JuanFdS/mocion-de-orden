@@ -1,3 +1,3 @@
 # Mocion de orden
 
-https://juanfds.itch.io/mocion-de-orden
+https://j9794.itch.io/mocion-de-orden
