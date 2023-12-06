@@ -4,6 +4,7 @@ extends Control
 var velocidad_de_burbuja := 0.0
 var tiempo_hasta_que_se_borra := 10.0
 var texto := ""
+var _postura
 var time_since_mouse_left = 5
 var mouse_hovering = false
 var borrandose = false
@@ -44,6 +45,9 @@ func _process(delta):
 	text_label.modulate.r = 0.5 if mouse_hovered_recently else 1.0
 	text_label.modulate.b = 0.5 if mouse_hovered_recently else 1.0
 	text_label.modulate.g = 0.5 if mouse_hovered_recently else 1.0
+
+func postura():
+	return _postura
 
 func mostrar_posibles_intervenciones(mouse_hovered_recently):
 	var tween = create_tween().set_parallel(true)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cdu0pdab8ibpu"]
+[gd_scene load_steps=26 format=3 uid="uid://cdu0pdab8ibpu"]
 
 [ext_resource type="Script" path="res://Asamblea.gd" id="1_4bwin"]
 [ext_resource type="Script" path="res://ConfiguracionDelJuego.gd" id="1_lj83h"]
@@ -26,6 +26,10 @@ texture_margin_top = 36.0
 texture_margin_bottom = 36.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2bt6u"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_d5vww"]
+font_size = 30
+font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Animation" id="Animation_bdyu3"]
 length = 0.001
@@ -129,9 +133,9 @@ script = ExtResource("1_4bwin")
 [node name="ConfiguracionDelJuego" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("1_lj83h")
-velocidad_de_burbuja_de_dialogo = 10.0
-tiempo_hasta_que_se_borra_burbuja_de_dialogo = 8.0
-tiempo_entre_dialogos = 5.0
+velocidad_de_burbuja_de_dialogo = 20.0
+tiempo_hasta_que_se_borra_burbuja_de_dialogo = 5.0
+tiempo_entre_dialogos = 2.0
 mas_menos_tiempo_entre_dialogos = 1.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -301,6 +305,12 @@ offset_bottom = 1456.0
 rotation = 0.357792
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("10_uegrn")
+
+[node name="Ganador" type="Label" parent="CanvasLayer"]
+unique_name_in_owner = true
+offset_right = 40.0
+offset_bottom = 23.0
+label_settings = SubResource("LabelSettings_d5vww")
 
 [node name="Reloj" type="TextureProgressBar" parent="CanvasLayer"]
 unique_name_in_owner = true
