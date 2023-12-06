@@ -50,6 +50,8 @@ func postura_ganadora():
 	return posturas.front()
 
 func dar_resultado_final():
+	if sillazos:
+		return
 	if Dialogic.current_timeline != null:
 		return
 	var postura = {VIOLETA: "[color=purple]Violeta[/color]",
