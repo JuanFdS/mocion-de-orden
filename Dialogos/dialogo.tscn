@@ -21,12 +21,20 @@ theme = ExtResource("1_7oax5")
 alignment = 2
 script = ExtResource("1_8tedw")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
+[node name="PanelContainer2" type="PanelContainer" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 focus_mode = 1
+text = "asdf"
 fit_content = true
+scroll_active = false
 
 [node name="Intervenciones" type="VBoxContainer" parent="."]
 unique_name_in_owner = true

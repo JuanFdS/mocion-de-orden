@@ -10,7 +10,7 @@ var time_since_mouse_left = 5
 var mouse_hovering = false
 var borrandose = false
 var reaccionable = true
-@onready var text_label = $RichTextLabel
+@onready var text_label = %RichTextLabel
 
 signal borrado
 signal intervenido

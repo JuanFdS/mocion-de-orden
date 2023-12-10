@@ -6,6 +6,19 @@ const VIOLETA = "Violeta"
 const ROJO = "Rojo"
 const CELESTE = "Celeste"
 
+var dialogos_de_acuerdo = RandomizedList.new(
+	[func(partido): return 'Me parece acertada la postura %s' % ("de la compañera" if es_mujer(partido) else "del compañero"),
+	 func(partido): return 'Lo que mencionó %s me parece que es una buena idea.' % (le_companiere(partido)),
+	func(partido): return 'Estoy de acuerdo con lo que propuso %s.' % (le_companiere(partido))]
+)
+
+var dialogos_en_contra = RandomizedList.new(
+	[
+		func(partido): return ("%s, con todo respeto, no creo que sea una buena idea." % companiere(partido).capitalize()), 
+	func(partido): return "Permitime diferir con vos, yo lo veo de otro modo.",
+	func(partido): return ("Me parece que no va por ahí el tema, %s." % companiere(partido))]
+)
+
 var dialog_lines = RandomizedList.new([])
 
 var dialogos_agendados = []
@@ -19,6 +32,15 @@ var porotos_por_postura = {
 	ROJO: 0,
 	CELESTE: 0
 }
+
+func es_mujer(partido):
+	return partido == ROJO
+
+func le_companiere(partido):
+	return "la compañera" if es_mujer(partido) else "el compañero"
+
+func companiere(partido):
+	return "compañera" if es_mujer(partido) else "compañero"
 
 func _ready():
 	%Animosidad.sillazos_alcanzados.connect(func():
@@ -57,7 +79,7 @@ class DialogoAgendado:
 		var dialogo = asamblea.crear_dialogo(_partido, _linea)
 		dialogo.borrado.connect(func(): terminado.emit())
 		await Await.any([
-			asamblea.espera_larga(),
+			asamblea.espera_hasta_proximo_dialogo(),
 			dialogo.borrado]
 		)
 
@@ -80,7 +102,7 @@ func reproducir_dialogos_agendados():
 		if not sillazos:
 			ultimo_dialogo = dialogo_agendado
 			await dialogo_agendado.reproducir_en(self)
-	await ultimo_dialogo.terminado
+	await Await.any([ultimo_dialogo.terminado, %Timer.espera_larga()])
 
 func presentar_propuestas():
 	agendar_dialogo(
@@ -133,8 +155,6 @@ func postura_ganadora():
 	return posturas.front()
 
 func decir(dialogo):
-	if Dialogic.current_timeline != null:
-		return
 	Dialogic.start(dialogo)
 	await Dialogic.timeline_ended
 
@@ -150,6 +170,14 @@ func dar_resultado_final():
 	Dialogic.VAR.votos_celeste = str(max(0, porotos_por_postura[CELESTE]))
 	Dialogic.VAR.propuesta_ganadora = postura
 	await decir('anunciarGanador')
+	animar_ganador()
+
+func animar_ganador():
+	{
+		VIOLETA: %Violeta,
+		ROJO: %Rojo,
+		CELESTE: %Celeste
+	}[postura_ganadora()].gano()
 
 func crear_dialogo(partido, linea, reaccionable = true):
 	var config := %ConfiguracionDelJuego
@@ -165,11 +193,10 @@ func crear_dialogo(partido, linea, reaccionable = true):
 	if reaccionable:
 		dialogos_en_curso.push_front(dialogo)
 		dialogo.fue_aprobado.connect(func():
-			sumar_poroto_a(dialogo.postura())
+			estar_de_acuerdo(dialogo)
 		)
 		dialogo.fue_rechazado.connect(func():
-			restar_poroto_a(dialogo.postura())
-			restar_poroto_a(dialogo.postura())
+			estar_en_contra(dialogo)
 		)
 		dialogo.intervenido.connect(func():
 			self.dialogo_fue_intervenido()
@@ -184,6 +211,16 @@ func crear_dialogo(partido, linea, reaccionable = true):
 
 func restar_poroto_a(postura):
 	porotos_por_postura[postura] -= 1
+
+func estar_de_acuerdo(dialogo):
+	Dialogic.VAR.de_acuerdo = dialogos_de_acuerdo.next().call(dialogo.postura())
+	decir("acordar")
+	sumar_poroto_a(dialogo.postura())
+
+func estar_en_contra(dialogo):
+	Dialogic.VAR.en_contra = dialogos_en_contra.next().call(dialogo.postura())
+	decir("enContra")
+	restar_poroto_a(dialogo.postura())
 
 func sumar_poroto_a(postura):
 	porotos_por_postura[postura] += 1
@@ -204,6 +241,10 @@ func obtener_tiempo_hasta_proximo_dialogo():
 			mas_menos_tiempo_entre_dialogos)
 
 	return tiempo_hasta_proximo_dialogo
+
+func espera_hasta_proximo_dialogo():
+	var tiempo_hasta_proximo_dialogo = obtener_tiempo_hasta_proximo_dialogo()
+	return get_tree().create_timer(tiempo_hasta_proximo_dialogo).timeout
 
 func hacer_decir_dialogo_a_alguno():
 	if(sillazos):

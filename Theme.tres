@@ -1,25 +1,24 @@
-[gd_resource type="Theme" load_steps=4 format=3 uid="uid://cso6ppxd02rgv"]
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://cso6ppxd02rgv"]
+
+[ext_resource type="FontFile" uid="uid://doa7jw3xnr0ed" path="res://assets/fonts/pencilant_script/Pencilant Script.otf" id="1_gtoxc"]
+[ext_resource type="Texture2D" uid="uid://bf8hcx8lh788c" path="res://assets/ui/Burbuja de diálogo.png" id="2_7vpd7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pxmtp"]
 bg_color = Color(0, 0.486275, 0.333333, 1)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wxf10"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bkdca"]
-content_margin_left = 5.0
-content_margin_top = 10.0
-content_margin_right = 10.0
-content_margin_bottom = 10.0
-bg_color = Color(0.388235, 0.968627, 1, 1)
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ignwr"]
+content_margin_top = 100.0
+content_margin_bottom = 100.0
+texture = ExtResource("2_7vpd7")
+expand_margin_left = 100.0
+expand_margin_top = 100.0
+expand_margin_right = 100.0
+expand_margin_bottom = 100.0
+region_rect = Rect2(21.7878, 44.935, 453.52, 300.499)
 
 [resource]
 Button/styles/normal = SubResource("StyleBoxFlat_pxmtp")
-RichTextLabel/colors/default_color = Color(0, 0, 0, 1)
-RichTextLabel/styles/focus = SubResource("StyleBoxEmpty_wxf10")
-RichTextLabel/styles/normal = SubResource("StyleBoxFlat_bkdca")
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_ignwr")
+RichTextLabel/colors/default_color = Color(1, 1, 1, 1)
+RichTextLabel/font_sizes/normal_font_size = 30
+RichTextLabel/fonts/normal_font = ExtResource("1_gtoxc")
