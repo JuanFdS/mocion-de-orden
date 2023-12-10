@@ -2093,12 +2093,11 @@ script/source = "extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$Reloj.tiempo_alcanzado.connect(self.mover_reloj)
 	mover_reloj()
 
 func mover_reloj():
 	$Reloj.esperar(2.0)
-	$Reloj.tiempo_alcanzado.connect(self.mover_reloj)
-
 "
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_lj7bk"]
