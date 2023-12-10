@@ -15,8 +15,9 @@ func _ready():
 
 func update_load():
 	var progress = []
+	load_progress = clampf(load_progress + randf_range(0.002, 0.008), 0.0, 0.99) 
 	var load_status = ResourceLoader.load_threaded_get_status(ASAMBLEA_PATH, progress)
-	load_progress = max(progress[0], load_progress)
+	load_progress = clampf(progress[0], load_progress, 0.99)
 	match load_status:
 		ResourceLoader.THREAD_LOAD_IN_PROGRESS:
 			%Comenzar.disabled = true
