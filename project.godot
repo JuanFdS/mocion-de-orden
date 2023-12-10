@@ -65,6 +65,7 @@ layout/default_style="Default"
 text/input_action="dialogic_default_action"
 text/autoadvance_enabled=true
 text/autoadvance_fixed_delay=0.5
+layout/end_behaviour=1
 
 [display]
 

@@ -214,12 +214,12 @@ func restar_poroto_a(postura):
 
 func estar_de_acuerdo(dialogo):
 	Dialogic.VAR.de_acuerdo = dialogos_de_acuerdo.next().call(dialogo.postura())
-	#decir("acordar")
+	decir("acordar")
 	sumar_poroto_a(dialogo.postura())
 
 func estar_en_contra(dialogo):
 	Dialogic.VAR.en_contra = dialogos_en_contra.next().call(dialogo.postura())
-	#decir("enContra")
+	decir("enContra")
 	restar_poroto_a(dialogo.postura())
 
 func sumar_poroto_a(postura):
