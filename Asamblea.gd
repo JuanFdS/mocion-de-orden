@@ -153,14 +153,13 @@ func dar_resultado_final():
 
 func crear_dialogo(partido, linea, reaccionable = true):
 	var config := %ConfiguracionDelJuego
-	var representante = partido.get_children().pick_random()
 	var dialogo = DIALOGO.instantiate()
 	dialogo.tiempo_hasta_que_se_borra = config.tiempo_hasta_que_se_borra_burbuja_de_dialogo
 	dialogo.velocidad_de_burbuja = config.velocidad_de_burbuja_de_dialogo
 	dialogo.texto = linea
 	dialogo._postura = partido.name
 	dialogo.reaccionable = reaccionable
-	representante.add_child(dialogo)
+	partido.agregar_dialogo(dialogo)
 	
 
 	if reaccionable:

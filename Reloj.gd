@@ -2,6 +2,11 @@ extends TextureProgressBar
 
 signal tiempo_alcanzado
 
+var original_scale
+
+func _ready():
+	original_scale = scale
+
 var segundos_restantes: float = 0.0
 
 func esta_esperando():
@@ -10,7 +15,7 @@ func esta_esperando():
 func esperar(segundos):
 	segundos_restantes = segundos
 	max_value = segundos_restantes
-	create_tween().tween_property(self, "scale", Vector2.ONE * 0.6, 0.3).from(Vector2.ONE * 0.9).set_trans(Tween.TRANS_SPRING)
+	create_tween().tween_property(self, "scale", original_scale, 0.3).from(original_scale * 1.2).set_trans(Tween.TRANS_SPRING)
 
 func _physics_process(delta):
 	value = segundos_restantes

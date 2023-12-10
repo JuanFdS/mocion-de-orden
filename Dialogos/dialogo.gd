@@ -1,4 +1,5 @@
 @tool
+class_name Dialogo
 extends Control
 
 var velocidad_de_burbuja := 0.0
