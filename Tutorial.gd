@@ -25,6 +25,7 @@ func _process(_delta):
 	%TutoAnterior.disabled = en_primer_paso() or cambiando_de_paso
 	%TutoSiguiente.disabled = cambiando_de_paso
 	%TutoSiguiente.text = "Comenzar" if en_ultimo_paso() else "Siguiente"
+	%TutoSiguiente.modulate = Color.GREEN if en_ultimo_paso() else Color.WHITE
 
 func en_primer_paso():
 	return pasos.find(paso_actual) == 0
@@ -34,10 +35,10 @@ func en_ultimo_paso():
 
 func mostrar_paso(paso):
 	paso.visible = true
-	await create_tween().tween_property(paso, "modulate:a", 1.0, 0.5).finished
+	await create_tween().tween_property(paso, "modulate:a", 1.0, 0.25).finished
 
 func esconder_paso(paso):
-	await create_tween().tween_property(paso, "modulate:a", 0.0, 0.5).finished	
+	await create_tween().tween_property(paso, "modulate:a", 0.0, 0.25).finished	
 	paso.visible = false
 
 func adelante():
