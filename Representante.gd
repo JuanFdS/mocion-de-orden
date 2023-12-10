@@ -2,6 +2,9 @@ extends Control
 
 var dialogos_en_curso = []
 
+func sillazos():
+	$Delegado.play("HyperAngry")
+
 func agregar_dialogo(dialogo: Dialogo):
 	dialogos_en_curso.push_front(dialogo)
 	$Posicion.add_child(dialogo)
