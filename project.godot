@@ -15,7 +15,7 @@ ruake/layer=999999
 [application]
 
 config/name="Mocion-de-orden"
-run/main_scene="res://Asamblea.tscn"
+run/main_scene="res://Titulo.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 
 [autoload]
