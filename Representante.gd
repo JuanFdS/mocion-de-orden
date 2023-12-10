@@ -2,6 +2,9 @@ extends Control
 
 var dialogos_en_curso = []
 
+func tiene_postura(postura):
+	return name == postura
+
 func sillazos():
 	$Delegado.play("HyperAngry")
 

@@ -6,6 +6,17 @@ const VIOLETA = "Violeta"
 const ROJO = "Rojo"
 const CELESTE = "Celeste"
 
+var dialogos_barderos = RandomizedList.new([
+	"¡Son unos truchos!",
+	"Dejen de robarse la plata de la fotocopiadora",
+	"Chantas, se la pasan pintando carteles",
+	"Los vamos a hacer correr como en la asamblea de la FUA",
+	"Andá a agarrar la pala, ladri",
+	"¡Conseguite una solución honesta!",
+	"¡Con la tuya, estudiante!",
+	"Callate, catador de pan relleno"
+])
+
 var dialogos_de_acuerdo = RandomizedList.new(
 	[func(partido): return 'Me parece acertada la postura %s' % ("de la compañera" if es_mujer(partido) else "del compañero"),
 	 func(partido): return 'Lo que mencionó %s me parece que es una buena idea.' % (le_companiere(partido)),
@@ -25,6 +36,7 @@ var dialogos_agendados = []
 
 var partidos = []
 var dialogos_en_curso = []
+var dialogos_seguidos_sin_intervenir = 0
 var sillazos = false
 
 var porotos_por_postura = {
@@ -46,6 +58,7 @@ func _ready():
 	%Animosidad.sillazos_alcanzados.connect(func():
 		if(not sillazos):
 			sillazos = true
+			dialogos_agendados.clear()
 			%Sillazos.activar()
 	)
 	partidos = RandomizedList.new(%Dialogos.get_children())
@@ -57,7 +70,6 @@ func empezar_asamblea():
 	# dialogos guionados en orden:
 	await presentar_propuestas()
 	# esto solo se usaria si vamos por el flujo de tener dialogos random:
-	#hacer_decir_dialogo_a_alguno()
 	await %Timer.espera_corta()
 	dar_resultado_final()
 
@@ -66,6 +78,10 @@ func agendar_dialogo(partido, linea):
 
 func agendar_pausa():
 	dialogos_agendados.push_back(Pausa.new())
+
+class DialogoBardero extends DialogoAgendado:
+	func crear_dialogo(asamblea):
+		return asamblea.crear_dialogo(_partido, _linea, true, true)
 
 class DialogoAgendado:
 	signal terminado
@@ -76,8 +92,11 @@ class DialogoAgendado:
 		_partido = partido
 		_linea = linea
 	
+	func crear_dialogo(asamblea):
+		return asamblea.crear_dialogo(_partido, _linea, true, false)
+	
 	func reproducir_en(asamblea):
-		var dialogo = asamblea.crear_dialogo(_partido, _linea)
+		var dialogo = crear_dialogo(asamblea)
 		dialogo.borrado.connect(func(): terminado.emit())
 		await Await.any([
 			asamblea.espera_hasta_proximo_dialogo(),
@@ -97,12 +116,27 @@ func espera_corta():
 func espera_larga():
 	return %Timer.espera_larga()
 
+func dialogos_agendados_sin_contar_pausas():
+	return dialogos_agendados.filter(func(dialogo): return dialogo is DialogoAgendado)
+
+func proximo_partido_que_no_sea_el_ultimo_que_esta_hablando():
+	var partido = partidos.next()
+	while partido.tiene_postura(dialogos_en_curso.front()._postura):
+		partido = partidos.next()
+	return partido
+
 func reproducir_dialogos_agendados():
 	var ultimo_dialogo
-	for dialogo_agendado in dialogos_agendados:
-		if not sillazos:
-			ultimo_dialogo = dialogo_agendado
-			await dialogo_agendado.reproducir_en(self)
+	while not dialogos_agendados.is_empty():
+		var dialogo_agendado
+		if dialogos_seguidos_sin_intervenir >= 3:
+			var dialogo_bardero = dialogos_barderos.next()
+			var partido_que_bardea = proximo_partido_que_no_sea_el_ultimo_que_esta_hablando()
+			dialogo_agendado = DialogoBardero.new(partido_que_bardea, dialogo_bardero)
+		else:
+			dialogo_agendado = dialogos_agendados.pop_front()
+		ultimo_dialogo = dialogo_agendado
+		await dialogo_agendado.reproducir_en(self)
 	await Await.any([ultimo_dialogo.terminado, %Timer.espera_larga()])
 
 func presentar_propuestas():
@@ -180,7 +214,7 @@ func animar_ganador():
 		CELESTE: %Celeste
 	}[postura_ganadora()].gano()
 
-func crear_dialogo(partido, linea, reaccionable = true):
+func crear_dialogo(partido, linea, reaccionable = true, bardero = false):
 	var config := %ConfiguracionDelJuego
 	var dialogo = DIALOGO.instantiate()
 	dialogo.tiempo_hasta_que_se_borra = config.tiempo_hasta_que_se_borra_burbuja_de_dialogo
@@ -190,6 +224,7 @@ func crear_dialogo(partido, linea, reaccionable = true):
 	dialogo.reaccionable = reaccionable
 	partido.agregar_dialogo(dialogo)
 	
+	dialogos_seguidos_sin_intervenir += 1
 
 	if reaccionable:
 		dialogos_en_curso.push_front(dialogo)
@@ -201,14 +236,43 @@ func crear_dialogo(partido, linea, reaccionable = true):
 		)
 		dialogo.intervenido.connect(func():
 			self.dialogo_fue_intervenido()
-			dialogos_en_curso.map(func(un_dialogo): un_dialogo.borrarse())
+			dialogos_en_curso.map(func(un_dialogo):
+				un_dialogo.fue_intervenido = true
+				un_dialogo.borrarse()
+			)
+			dialogos_seguidos_sin_intervenir = 0
 		)
 		dialogo.borrado.connect(func():
 			sumar_poroto_a(dialogo.postura())
 			dialogos_en_curso.erase(dialogo)
 		)
+	
+	if bardero:
+		dialogo.fue_aprobado.connect(func():
+			self.generar_descontento()
+			enojar_a_todos_menos(dialogo._postura)
+		)
+		dialogo.fue_rechazado.connect(func():
+			self.calmar_descontento()
+			contentar_a_todos_menos(dialogo._postura)
+		)
+		dialogo.borrado.connect(func():
+			if not dialogo.fue_intervenido:
+				self.generar_descontento()
+		)
 
 	return dialogo
+
+func partidos_sin(postura):
+	return %Dialogos.get_children()\
+		.filter(func(partido): return not partido.tiene_postura(postura))
+
+func contentar_a_todos_menos(postura):
+	partidos_sin(postura).map(func(partido): partido.ponerse_contente())
+
+func enojar_a_todos_menos(postura):
+	partidos_sin(postura).map(func(partido): partido.enojarse())
+	
 
 func restar_poroto_a(postura):
 	porotos_por_postura[postura] -= 1
@@ -226,10 +290,16 @@ func estar_en_contra(dialogo):
 func sumar_poroto_a(postura):
 	porotos_por_postura[postura] += 1
 
+func calmar_descontento():
+	%Animosidad.mejorar(10)
+
+func generar_descontento():
+	%Animosidad.empeorar(20)
+
 func dialogo_fue_intervenido():
 	var reloj = %Reloj
 	if(reloj.esta_esperando()):
-		%Animosidad.empeorar(20)
+		generar_descontento()
 	reloj.esperar(5)
 
 func obtener_tiempo_hasta_proximo_dialogo():
@@ -247,25 +317,6 @@ func espera_hasta_proximo_dialogo():
 	var tiempo_hasta_proximo_dialogo = obtener_tiempo_hasta_proximo_dialogo()
 	return get_tree().create_timer(tiempo_hasta_proximo_dialogo).timeout
 
-func hacer_decir_dialogo_a_alguno():
-	if(sillazos):
-		return
-	var config := %ConfiguracionDelJuego
-	
-	var dialogo = crear_dialogo(partidos.next(), dialog_lines.next())
-	var tiempo_hasta_proximo_dialogo = obtener_tiempo_hasta_proximo_dialogo()
-
-	await Await.any([
-		dialogo.borrado,
-		get_tree().create_timer(tiempo_hasta_proximo_dialogo).timeout
-	])
-	
-	if(dialog_lines.has_gone_through_all_elements()):
-		dialogos_en_curso.map(func(dialogo): dialogo.borrarse())
-		await get_tree().create_timer(0.5).timeout
-		dar_resultado_final()
-	else:
-		hacer_decir_dialogo_a_alguno()
 
 class RandomizedList:
 	var list: Array

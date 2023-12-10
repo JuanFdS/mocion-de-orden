@@ -12,6 +12,8 @@ var borrandose = false
 @export var reaccionable = true
 @onready var text_label = %RichTextLabel
 
+var fue_intervenido = false
+
 signal borrado
 signal intervenido
 signal fue_aprobado
@@ -96,12 +98,12 @@ func reconfirmado():
 func rechazado():
 	fue_rechazado.emit()
 	intervenirse_con(Color.RED)
-	
 
 func intervenirse_con(color: Color):
 	if(borrandose):
 		return
 	text_label.modulate = color
+	fue_intervenido = true
 	intervenido.emit()
 	borrarse()
 

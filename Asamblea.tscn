@@ -8484,7 +8484,7 @@ unique_name_in_owner = true
 script = ExtResource("1_lj83h")
 velocidad_de_burbuja_de_dialogo = 7.0
 tiempo_hasta_que_se_borra_burbuja_de_dialogo = 8.0
-tiempo_entre_dialogos = 7.0
+tiempo_entre_dialogos = 3.5
 
 [node name="Tutorial" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
