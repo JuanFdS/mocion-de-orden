@@ -6,20 +6,10 @@ const VIOLETA = "Violeta"
 const ROJO = "Rojo"
 const CELESTE = "Celeste"
 
-var dialog_lines = RandomizedList.new([
-		#"Yo me equivoqué y pagué, pero la pelota no se mancha.",
-		#"barrilete cósmico, ¿de qué planeta viniste?",
-		#"Si querés llorar llorá",
-		"El decorado se calla",
-		#"Me cortaron las piernas",
-		#"Que miseria che...3 empanadas",
-		"Yo hago ravioles, ella hace ravioles",
-		"Sos un fracasado, todos progresan menos vos",
-		"Como te ven, te tratan. Si te ven mal, te maltratan. Si te ven bien, te contratan",
-		"Anda pa' alla, bobo",
-		#"Basta, chicos",
-		"Usted se tiene que arrepentir de lo que dijo"
-	])
+var dialog_lines = RandomizedList.new([])
+
+var dialogos_agendados = []
+
 var partidos = []
 var dialogos_en_curso = []
 var sillazos = false
@@ -41,49 +31,98 @@ func _ready():
 
 func empezar_asamblea():
 	await decir('comienzoDeLaAsamblea')
+	# dialogos guionados en orden:
 	await presentar_propuestas()
-	hacer_decir_dialogo_a_alguno()
+	# esto solo se usaria si vamos por el flujo de tener dialogos random:
+	#hacer_decir_dialogo_a_alguno()
+	await %Timer.espera_corta()
+	dar_resultado_final()
+
+func agendar_dialogo(partido, linea):
+	dialogos_agendados.push_back(DialogoAgendado.new(partido, linea))
+
+func agendar_pausa():
+	dialogos_agendados.push_back(Pausa.new())
+
+class DialogoAgendado:
+	signal terminado
+	var _partido
+	var _linea
+	
+	func _init(partido, linea):
+		_partido = partido
+		_linea = linea
+	
+	func reproducir_en(asamblea):
+		var dialogo = asamblea.crear_dialogo(_partido, _linea)
+		dialogo.borrado.connect(func(): terminado.emit())
+		await Await.any([
+			asamblea.espera_larga(),
+			dialogo.borrado]
+		)
+
+class Pausa:
+	signal terminado
+	
+	func reproducir_en(asamblea):
+		await asamblea.espera_larga()
+		terminado.emit()
+
+func espera_corta():
+	return %Timer.espera_corta()
+
+func espera_larga():
+	return %Timer.espera_larga()
+
+func reproducir_dialogos_agendados():
+	var ultimo_dialogo
+	for dialogo_agendado in dialogos_agendados:
+		if not sillazos:
+			ultimo_dialogo = dialogo_agendado
+			await dialogo_agendado.reproducir_en(self)
+	await ultimo_dialogo.terminado
 
 func presentar_propuestas():
-	crear_dialogo(%Violeta,
-					"Mi papá tiene una carnicería y mi tía una librería. Proponemos la realización de una rifa en la cual sortearemos libros y una pata de ternera.",
-					false).realentizar()
-	await %Timer.espera_larga()
-	crear_dialogo(%Rojo,
-					"Pero tu tía tiene vende puro best sellers.",
-					false).realentizar()
-	await %Timer.espera_larga()
-	var respuesta = crear_dialogo(%Celeste,
-					"Compa, pensemos en quienes son vegetarianes o veganes.",
-					false)
-	respuesta.realentizar()
-	await respuesta.borrado
+	agendar_dialogo(
+		%Violeta,
+		"Mi papá tiene una carnicería y mi tía una librería. Proponemos la realización de una rifa en la cual sortearemos libros y una pata de ternera."
+	)
+	agendar_dialogo(
+		%Rojo,
+		"Pero tu tia vende puro best sellers."
+	)
+	agendar_dialogo(
+		%Celeste,
+		"Compa, pensemos en quienes son vegetarianes o veganes."
+	)
+	agendar_pausa()
+	agendar_dialogo(
+		%Rojo,
+		"Podemos realizar una choripaneada abierta para toda la comunidad de la facu."
+	)
+	agendar_dialogo(
+		%Violeta,
+		"No me convence, porque la última vez que hicimos algo así tuvimos lío con el Decano."
+	)
+	agendar_dialogo(
+		%Celeste,
+		"Ah, vos tampoco pensás en les compañeres vegetarianes."
+	)
+	agendar_pausa()
+	agendar_dialogo(
+		%Celeste,
+		"Podemos realizar una feria en el patio de la facu, donde no solo podremos juntar el dinero necesario sino también ayudar a emprendedores a difundir sus negocios y tener más ventas, a cambio de que elles paguen una pequeña suma para poner su stand."
+	)
+	agendar_dialogo(
+		%Violeta,
+		"No creo que se pueda, el patio de la facu es muy chico para eso."
+	)
+	agendar_dialogo(
+		%Rojo,
+		"¿Con qué criterio vamos a elegir a les emprendedores que van a participar de la feria?"
+	)
 	
-	crear_dialogo(%Rojo,
-		"Podemos realizar una choripaneada abierta para toda la comunidad de la facu.",
-		false).realentizar()
-	await %Timer.espera_larga()
-	crear_dialogo(%Violeta,
-		"No me convence, porque la última vez que hicimos algo así tuvimos lío con el Decano.",
-		false).realentizar()
-	await %Timer.espera_larga()
-	respuesta = crear_dialogo(%Celeste,
-		"Ah, vos tampoco pensás en les compañeres vegetarianes.", false)
-	respuesta.realentizar()
-	await respuesta.borrado
-	
-	crear_dialogo(%Celeste,
-		"Podemos realizar una feria en el patio de la facu, donde no solo podremos juntar el dinero necesario sino también ayudar a emprendedores a difundir sus negocios y tener más ventas, a cambio de que elles paguen una pequeña suma para poner su stand.",
-		false).realentizar()
-	await %Timer.espera_larga()
-	crear_dialogo(%Violeta,
-		"No creo que se pueda, el patio de la facu es muy chico para eso.",
-		false).realentizar()
-	await %Timer.espera_larga()
-	respuesta = crear_dialogo(%Rojo,
-		"¿Con qué criterio vamos a elegir a les emprendedores que van a participar de la feria?", false)
-	respuesta.realentizar()
-	await respuesta.borrado
+	await reproducir_dialogos_agendados()
 
 
 func postura_ganadora():
@@ -103,9 +142,12 @@ func dar_resultado_final():
 	if sillazos:
 		return
 	
-	var postura = {VIOLETA: "[color=purple]Violeta[/color]",
-					ROJO: "[color=red]Rojo[/color]",
-					CELESTE: "[color=cyan]Celeste[/color]"}[postura_ganadora()]
+	var postura = {VIOLETA: "rifa de libros y una pata de ternera.",
+					ROJO: "choripaneada abierta para toda la comunidad de la facu",
+					CELESTE: "feria en el patio de la facu"}[postura_ganadora()]
+	Dialogic.VAR.votos_rojo = str(max(0, porotos_por_postura[ROJO]))
+	Dialogic.VAR.votos_violeta = str(max(0, porotos_por_postura[VIOLETA]))
+	Dialogic.VAR.votos_celeste = str(max(0, porotos_por_postura[CELESTE]))
 	Dialogic.VAR.propuesta_ganadora = postura
 	await decir('anunciarGanador')
 

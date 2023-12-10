@@ -28,7 +28,10 @@ Dialogic="*res://addons/dialogic/Other/DialogicGameHandler.gd"
 
 glossary/default_case_sensitive=true
 variables={
-"propuesta_ganadora": ""
+"propuesta_ganadora": "",
+"votos_celeste": "0",
+"votos_rojo": "0",
+"votos_violeta": "0"
 }
 text/letter_speed=0.03
 text/initial_text_reveal_skippable=true
