@@ -1,9 +1,13 @@
-[gd_scene load_steps=2082 format=3 uid="uid://cdu0pdab8ibpu"]
+[gd_scene load_steps=2088 format=3 uid="uid://cdu0pdab8ibpu"]
 
 [ext_resource type="Script" path="res://Asamblea.gd" id="1_4bwin"]
 [ext_resource type="Script" path="res://ConfiguracionDelJuego.gd" id="1_lj83h"]
 [ext_resource type="Theme" uid="uid://cso6ppxd02rgv" path="res://Theme.tres" id="1_rfvxo"]
 [ext_resource type="Script" path="res://Timer.gd" id="2_vw8f6"]
+[ext_resource type="FontFile" uid="uid://ce6io21ywd5p1" path="res://assets/fonts/Fonts logo y anuncios/halimount/Halimount.otf" id="4_2vg50"]
+[ext_resource type="Script" path="res://Tutorial.gd" id="4_7ngoc"]
+[ext_resource type="PackedScene" uid="uid://0vqpladtqkwp" path="res://Dialogos/dialogo.tscn" id="4_31087"]
+[ext_resource type="FontFile" uid="uid://b3ph0tkgqnel2" path="res://assets/fonts/Fonts logo y anuncios/my_coffee_break/My Coffee Break.otf" id="4_egrk7"]
 [ext_resource type="Texture2D" uid="uid://cuu0gms72hdp6" path="res://assets/Arte/fondo prototipo.png" id="4_mqewv"]
 [ext_resource type="Texture2D" uid="uid://mmyj0egbd5y1" path="res://assets/Animosidad/barraDeAnimosidad.png" id="4_sf4o8"]
 [ext_resource type="Texture2D" uid="uid://b8heamkq5hj3c" path="res://assets/Animosidad/indicadorDeAnimosidad.png" id="5_xq5wh"]
@@ -2064,6 +2068,38 @@
 [ext_resource type="Texture2D" uid="uid://ct57j50yacoeg" path="res://assets/sillazos/Sillazos Atras/Sillazos Atras_00117.png" id="2057_dgdph"]
 [ext_resource type="Texture2D" uid="uid://cla3teua1n0da" path="res://assets/sillazos/Sillazos Atras/Sillazos Atras_00118.png" id="2058_w5vrc"]
 [ext_resource type="Texture2D" uid="uid://bnn6ad410n3n3" path="res://assets/sillazos/Sillazos Atras/Sillazos Atras_00119.png" id="2059_o18mr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_30orx"]
+content_margin_left = 30.0
+content_margin_top = 30.0
+content_margin_right = 30.0
+content_margin_bottom = 30.0
+bg_color = Color(0, 0, 0, 0.784314)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_22n1i"]
+texture = ExtResource("4_sf4o8")
+texture_margin_top = 36.0
+texture_margin_bottom = 36.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2bt6u"]
+
+[sub_resource type="GDScript" id="GDScript_eyrqd"]
+script/source = "extends Control
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	mover_reloj()
+
+func mover_reloj():
+	$Reloj.esperar(2.0)
+	$Reloj.tiempo_alcanzado.connect(self.mover_reloj)
+
+"
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_lj7bk"]
 animations = [{
@@ -5821,13 +5857,6 @@ animations = [{
 "speed": 24.0
 }]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_22n1i"]
-texture = ExtResource("4_sf4o8")
-texture_margin_top = 36.0
-texture_margin_bottom = 36.0
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2bt6u"]
-
 [sub_resource type="LabelSettings" id="LabelSettings_d5vww"]
 font_size = 30
 font_color = Color(0, 0, 0, 1)
@@ -8458,6 +8487,569 @@ velocidad_de_burbuja_de_dialogo = 7.0
 tiempo_hasta_que_se_borra_burbuja_de_dialogo = 8.0
 tiempo_entre_dialogos = 7.0
 
+[node name="Tutorial" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+layer = 10
+visible = false
+script = ExtResource("4_7ngoc")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Tutorial"]
+
+[node name="Control" type="Control" parent="Tutorial"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Seis TODO" type="Control" parent="Tutorial/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Tutorial/Control/Seis TODO"]
+clip_contents = false
+layout_mode = 0
+offset_left = 880.0
+offset_top = 288.0
+offset_right = 1841.0
+offset_bottom = 708.0
+theme_override_fonts/normal_font = ExtResource("4_egrk7")
+theme_override_font_sizes/normal_font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxFlat_30orx")
+text = "Cuando esté a punto de llenarse, contarás con unos segundos para hacer click en el botón de “Moción de orden” y así moderar el diálogo, además de evitar que la violencia escale."
+fit_content = true
+
+[node name="Animosidad2" type="HSlider" parent="Tutorial/Control/Seis TODO"]
+z_index = 10
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 993.0
+offset_top = 967.0
+offset_right = 1827.0
+offset_bottom = 999.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 1.28)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_icons/grabber_disabled = ExtResource("5_xq5wh")
+theme_override_styles/slider = SubResource("StyleBoxTexture_22n1i")
+theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_2bt6u")
+step = 0.0
+value = 50.0
+editable = false
+scrollable = false
+script = ExtResource("6_l3xkf")
+
+[node name="TextureRect" type="TextureRect" parent="Tutorial/Control/Seis TODO/Animosidad2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -25.0001
+offset_top = 1.56252
+offset_right = -153.0
+offset_bottom = 10.5625
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.24, 1)
+texture = ExtResource("6_egw6h")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="TextureRect3" type="TextureRect" parent="Tutorial/Control/Seis TODO/Animosidad2/TextureRect"]
+modulate = Color(0, 0, 0, 1)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 1.0
+offset_right = -132.0
+offset_bottom = -19.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.3, 1.3)
+texture = ExtResource("6_egw6h")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="TextureRect2" type="TextureRect" parent="Tutorial/Control/Seis TODO/Animosidad2"]
+layout_mode = 0
+offset_left = 753.0
+offset_top = -21.0
+offset_right = 960.0
+offset_bottom = 100.0
+texture = ExtResource("7_djrij")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect3" type="TextureRect" parent="Tutorial/Control/Seis TODO/Animosidad2/TextureRect2"]
+modulate = Color(0, 0, 0, 1)
+show_behind_parent = true
+layout_mode = 0
+offset_left = -8.0
+offset_right = 168.0
+offset_bottom = 99.0
+scale = Vector2(1.3, 1.3)
+texture = ExtResource("7_djrij")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Siete TODO" type="Control" parent="Tutorial/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Tutorial/Control/Siete TODO"]
+clip_contents = false
+layout_mode = 0
+offset_left = 880.0
+offset_top = 288.0
+offset_right = 1841.0
+offset_bottom = 708.0
+theme_override_fonts/normal_font = ExtResource("4_egrk7")
+theme_override_font_sizes/normal_font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxFlat_30orx")
+text = "Cuando esté a punto de llenarse, contarás con unos segundos para hacer click en el botón de “Moción de orden” y así moderar el diálogo, además de evitar que la violencia escale."
+fit_content = true
+
+[node name="Pasos" type="Control" parent="Tutorial/Control"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Cero" type="Control" parent="Tutorial/Control/Pasos"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Tutorial/Control/Pasos/Cero"]
+clip_contents = false
+layout_mode = 0
+offset_left = 291.0
+offset_top = 40.0
+offset_right = 1644.0
+offset_bottom = 400.0
+theme_override_fonts/normal_font = ExtResource("4_egrk7")
+theme_override_font_sizes/normal_font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxFlat_30orx")
+text = "Hoy se llevará a cabo una asamblea en el centro de estudiantes de la Facu de Humanidades de la UNR. Como presidente del mismo debés llegar a un acuerdo con las 3 agrupaciones para encontrar una solución a la problemática a plantear."
+fit_content = true
+
+[node name="Uno" type="Control" parent="Tutorial/Control/Pasos"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Tutorial/Control/Pasos/Uno"]
+clip_contents = false
+layout_mode = 0
+offset_left = 796.0
+offset_top = 88.0
+offset_right = 1598.0
+offset_bottom = 388.0
+theme_override_fonts/normal_font = ExtResource("4_egrk7")
+theme_override_font_sizes/normal_font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxFlat_30orx")
+text = "Moderá el debate interviniendo en el mismo, al hacer click en las burbujas de diálogos."
+fit_content = true
+
+[node name="Dialogo" parent="Tutorial/Control/Pasos/Uno" instance=ExtResource("4_31087")]
+layout_mode = 1
+offset_left = 148.0
+offset_top = 67.0
+offset_right = 562.0
+offset_bottom = 344.0
+reaccionable = false
+
+[node name="RichTextLabel" parent="Tutorial/Control/Pasos/Uno/Dialogo/PanelContainer2" index="0"]
+text = "Proponemos la realización de una rifa en la cual sortearemos libros y una pata de ternera."
+
+[node name="DeAcuerdo" parent="Tutorial/Control/Pasos/Uno/Dialogo/Intervenciones" index="0"]
+visible = true
+
+[node name="EnContra" parent="Tutorial/Control/Pasos/Uno/Dialogo/Intervenciones" index="1"]
+visible = true
+
+[node name="Dos" type="Control" parent="Tutorial/Control/Pasos"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Tutorial/Control/Pasos/Dos"]
+clip_contents = false
+layout_mode = 0
+offset_left = 796.0
+offset_top = 88.0
+offset_right = 1598.0
+offset_bottom = 388.0
+theme_override_fonts/normal_font = ExtResource("4_egrk7")
+theme_override_font_sizes/normal_font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxFlat_30orx")
+text = "Si estás de acuerdo con lo que dicen, les sumas un poquito a su propuesta.
+Si estás en contra, les restas.
+
+También podés dejar pasar el comentario sin opinar."
+fit_content = true
+
+[node name="Dialogo" parent="Tutorial/Control/Pasos/Dos" instance=ExtResource("4_31087")]
+layout_mode = 1
+offset_left = 148.0
+offset_top = 67.0
+offset_right = 562.0
+offset_bottom = 344.0
+reaccionable = false
+
+[node name="RichTextLabel" parent="Tutorial/Control/Pasos/Dos/Dialogo/PanelContainer2" index="0"]
+text = "Proponemos la realización de una rifa en la cual sortearemos libros y una pata de ternera."
+
+[node name="DeAcuerdo" parent="Tutorial/Control/Pasos/Dos/Dialogo/Intervenciones" index="0"]
+visible = true
+
+[node name="EnContra" parent="Tutorial/Control/Pasos/Dos/Dialogo/Intervenciones" index="1"]
+visible = true
+
+[node name="Tres" type="Control" parent="Tutorial/Control/Pasos"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Tutorial/Control/Pasos/Tres"]
+clip_contents = false
+layout_mode = 0
+offset_left = 649.0
+offset_top = 282.0
+offset_right = 1451.0
+offset_bottom = 642.0
+theme_override_fonts/normal_font = ExtResource("4_egrk7")
+theme_override_font_sizes/normal_font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxFlat_30orx")
+text = "Si interrumpís mucho el debate o pasás cierto tiempo sin intervenir, se irá llenando la barra de descontento. "
+fit_content = true
+
+[node name="Animosidad2" type="HSlider" parent="Tutorial/Control/Pasos/Tres"]
+unique_name_in_owner = true
+z_index = 10
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 993.0
+offset_top = 967.0
+offset_right = 1827.0
+offset_bottom = 999.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 1.28)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_icons/grabber_disabled = ExtResource("5_xq5wh")
+theme_override_styles/slider = SubResource("StyleBoxTexture_22n1i")
+theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_2bt6u")
+step = 0.0
+value = 50.0
+editable = false
+scrollable = false
+script = ExtResource("6_l3xkf")
+
+[node name="TextureRect" type="TextureRect" parent="Tutorial/Control/Pasos/Tres/Animosidad2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -25.0001
+offset_top = 1.56252
+offset_right = -153.0
+offset_bottom = 10.5625
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.24, 1)
+texture = ExtResource("6_egw6h")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="TextureRect3" type="TextureRect" parent="Tutorial/Control/Pasos/Tres/Animosidad2/TextureRect"]
+modulate = Color(0, 0, 0, 1)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 1.0
+offset_right = -132.0
+offset_bottom = -19.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.3, 1.3)
+texture = ExtResource("6_egw6h")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="TextureRect2" type="TextureRect" parent="Tutorial/Control/Pasos/Tres/Animosidad2"]
+layout_mode = 0
+offset_left = 753.0
+offset_top = -21.0
+offset_right = 960.0
+offset_bottom = 100.0
+texture = ExtResource("7_djrij")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect3" type="TextureRect" parent="Tutorial/Control/Pasos/Tres/Animosidad2/TextureRect2"]
+modulate = Color(0, 0, 0, 1)
+show_behind_parent = true
+layout_mode = 0
+offset_left = -8.0
+offset_right = 168.0
+offset_bottom = 99.0
+scale = Vector2(1.3, 1.3)
+texture = ExtResource("7_djrij")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Cuatro" type="Control" parent="Tutorial/Control/Pasos"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_eyrqd")
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Tutorial/Control/Pasos/Cuatro"]
+clip_contents = false
+layout_mode = 0
+offset_left = 507.0
+offset_top = 452.0
+offset_right = 1366.0
+offset_bottom = 872.0
+theme_override_fonts/normal_font = ExtResource("4_egrk7")
+theme_override_font_sizes/normal_font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxFlat_30orx")
+text = "Prestá atención al reloj para no interrumpir muy seguido.
+
+Si interrumpis mientras está corriendo el tiempo se van a enojar."
+fit_content = true
+
+[node name="Reloj" type="TextureProgressBar" parent="Tutorial/Control/Pasos/Cuatro"]
+z_index = 21
+layout_mode = 0
+offset_left = 606.0
+offset_top = 937.0
+offset_right = 806.0
+offset_bottom = 1137.0
+scale = Vector2(1.5, 1.5)
+pivot_offset = Vector2(32, 32)
+step = 0.0
+fill_mode = 5
+texture_under = ExtResource("13_cofqe")
+texture_progress = ExtResource("13_cofqe")
+tint_progress = Color(0, 0, 0, 0.392157)
+script = ExtResource("10_7wo0l")
+
+[node name="Cinco" type="Control" parent="Tutorial/Control/Pasos"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Tutorial/Control/Pasos/Cinco"]
+clip_contents = false
+layout_mode = 0
+offset_left = 880.0
+offset_top = 288.0
+offset_right = 1841.0
+offset_bottom = 708.0
+theme_override_fonts/normal_font = ExtResource("4_egrk7")
+theme_override_font_sizes/normal_font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxFlat_30orx")
+text = "Si la barra de descontento se completa, la asamblea se interrumpirá y les participantes terminarán a los sillazos. En ese caso, perderás la partida."
+fit_content = true
+
+[node name="Animosidad2" type="HSlider" parent="Tutorial/Control/Pasos/Cinco"]
+z_index = 10
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 993.0
+offset_top = 967.0
+offset_right = 1827.0
+offset_bottom = 999.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 1.28)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_icons/grabber_disabled = ExtResource("5_xq5wh")
+theme_override_styles/slider = SubResource("StyleBoxTexture_22n1i")
+theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_2bt6u")
+step = 0.0
+value = 50.0
+editable = false
+scrollable = false
+script = ExtResource("6_l3xkf")
+
+[node name="TextureRect" type="TextureRect" parent="Tutorial/Control/Pasos/Cinco/Animosidad2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -25.0001
+offset_top = 1.56252
+offset_right = -153.0
+offset_bottom = 10.5625
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.24, 1)
+texture = ExtResource("6_egw6h")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="TextureRect3" type="TextureRect" parent="Tutorial/Control/Pasos/Cinco/Animosidad2/TextureRect"]
+modulate = Color(0, 0, 0, 1)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 1.0
+offset_right = -132.0
+offset_bottom = -19.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.3, 1.3)
+texture = ExtResource("6_egw6h")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="TextureRect2" type="TextureRect" parent="Tutorial/Control/Pasos/Cinco/Animosidad2"]
+layout_mode = 0
+offset_left = 753.0
+offset_top = -21.0
+offset_right = 960.0
+offset_bottom = 100.0
+texture = ExtResource("7_djrij")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect3" type="TextureRect" parent="Tutorial/Control/Pasos/Cinco/Animosidad2/TextureRect2"]
+modulate = Color(0, 0, 0, 1)
+show_behind_parent = true
+layout_mode = 0
+offset_left = -8.0
+offset_right = 168.0
+offset_bottom = 99.0
+scale = Vector2(1.3, 1.3)
+texture = ExtResource("7_djrij")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Tutorial/Control"]
+visible = false
+clip_contents = false
+layout_mode = 0
+offset_left = 13.0
+offset_top = 24.0
+offset_right = 2135.0
+offset_bottom = 6356.0
+theme_override_fonts/normal_font = ExtResource("4_egrk7")
+theme_override_font_sizes/normal_font_size = 80
+text = "-Moderá el debate interviniendo en el mismo, al hacer click en las burbujas de diálogos.
+
+-Si interrumpís mucho el debate o pasás cierto tiempo sin intervenir, se irá llenando la barra de descontento. 
+
+-Si la misma se completa, la asamblea se interrumpirá y les participantes terminarán a los sillazos. En ese caso, perderás la partida.
+
+-La barra indica el grado de descontento y violencia que hay en la asamblea. Cuando esté a punto de llenarse, contarás con unos segundos para hacer click en el botón de “Moción de orden” y así moderar el diálogo, además de evitar que la violencia escale.
+
+-¡Tené cuidado con tocar el botón de “Moción de orden” cuando no corresponde! Eso hará que la barra se llene un poco más. 
+"
+fit_content = true
+
+[node name="ColorRect" type="ColorRect" parent="Tutorial/Control"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.392157)
+
+[node name="TutoSiguiente" type="Button" parent="Tutorial/Control"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 1437.0
+offset_top = 769.0
+offset_right = 1818.0
+offset_bottom = 877.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_2vg50")
+theme_override_font_sizes/font_size = 100
+text = "Siguiente"
+text_overrun_behavior = 3
+
+[node name="TutoAnterior" type="Button" parent="Tutorial/Control"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 151.0
+offset_top = 769.0
+offset_right = 477.0
+offset_bottom = 877.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_2vg50")
+theme_override_font_sizes/font_size = 100
+text = "Anterior"
+
+[node name="ColorRect2" type="ColorRect" parent="Tutorial/Control"]
+z_index = -1
+layout_mode = 0
+offset_left = 902.0
+offset_top = 694.0
+offset_right = 1056.0
+offset_bottom = 858.0
+rotation = 0.0767945
+
+[node name="Label" type="Label" parent="Tutorial/Control/ColorRect2"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 153.0
+offset_bottom = 154.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_2vg50")
+theme_override_font_sizes/font_size = 30
+text = "       10/12/23
+Tutorial"
+
 [node name="Node2D" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D"]
@@ -8501,10 +9093,10 @@ anchor_left = 0.038
 anchor_top = 0.244
 anchor_right = 0.344
 anchor_bottom = 0.332
-offset_left = -0.0840034
-offset_top = -0.436005
-offset_right = -0.392029
-offset_bottom = 0.291992
+offset_left = 101.916
+offset_top = 50.564
+offset_right = 101.608
+offset_bottom = 51.292
 
 [node name="Rojo" type="Control" parent="CanvasLayer/Dialogos"]
 unique_name_in_owner = true
@@ -8541,7 +9133,7 @@ script = ExtResource("6_ekcw6")
 
 [node name="Delegado" type="AnimatedSprite2D" parent="CanvasLayer/Dialogos/Celeste"]
 z_index = 1
-position = Vector2(1559, 698)
+position = Vector2(1559, 732)
 scale = Vector2(1.3, 1.3)
 sprite_frames = SubResource("SpriteFrames_hbloy")
 animation = &"HyperAngry"
@@ -8553,10 +9145,10 @@ anchor_left = 32.475
 anchor_top = 3.95
 anchor_right = 44.5
 anchor_bottom = 7.7
-offset_left = -0.00012207
-offset_top = -9.00002
-offset_right = -0.00012207
-offset_bottom = -9.0
+offset_left = -96.0
+offset_top = -9.0
+offset_right = 119.0
+offset_bottom = 31.0
 
 [node name="Animosidad" type="HSlider" parent="CanvasLayer"]
 unique_name_in_owner = true
@@ -9081,3 +9673,6 @@ offset_right = 1497.0
 offset_bottom = 251.0
 text = "SILLAZOS EN LA ASAMBLEA"
 label_settings = SubResource("LabelSettings_japjy")
+
+[editable path="Tutorial/Control/Pasos/Uno/Dialogo"]
+[editable path="Tutorial/Control/Pasos/Dos/Dialogo"]

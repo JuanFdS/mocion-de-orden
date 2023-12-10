@@ -9,7 +9,7 @@ var _postura
 var time_since_mouse_left = 5
 var mouse_hovering = false
 var borrandose = false
-var reaccionable = true
+@export var reaccionable = true
 @onready var text_label = %RichTextLabel
 
 signal borrado
@@ -30,6 +30,8 @@ func _ready():
 
 	text_label.layout_mode = 1
 	text_label.anchors_preset = PRESET_FULL_RECT
+	var appear_tween = create_tween()
+	appear_tween.tween_property(self, "modulate:a", 1.0, 0.2).from(0.0)
 	if texto:
 		text_label.text = texto
 
@@ -37,6 +39,8 @@ func _process(delta):
 	if Engine.is_editor_hint():
 		return
 	if borrandose:
+		return
+	if not reaccionable:
 		return
 	time_since_mouse_left = 0 if mouse_hovering else time_since_mouse_left + delta
 	var mouse_hovered_recently = time_since_mouse_left < 1.0

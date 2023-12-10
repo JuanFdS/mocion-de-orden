@@ -20,5 +20,5 @@ region_rect = Rect2(21.7878, 44.935, 453.52, 300.499)
 Button/styles/normal = SubResource("StyleBoxFlat_pxmtp")
 PanelContainer/styles/panel = SubResource("StyleBoxTexture_ignwr")
 RichTextLabel/colors/default_color = Color(1, 1, 1, 1)
-RichTextLabel/font_sizes/normal_font_size = 30
+RichTextLabel/font_sizes/normal_font_size = 40
 RichTextLabel/fonts/normal_font = ExtResource("1_gtoxc")

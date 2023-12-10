@@ -27,7 +27,7 @@ size_flags_horizontal = 3
 
 [node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer2"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(400, 0)
+custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4

@@ -52,6 +52,7 @@ func _ready():
 	empezar_asamblea()
 
 func empezar_asamblea():
+	await %Tutorial.empezar()
 	await decir('comienzoDeLaAsamblea')
 	# dialogos guionados en orden:
 	await presentar_propuestas()
@@ -106,6 +107,10 @@ func reproducir_dialogos_agendados():
 
 func presentar_propuestas():
 	agendar_dialogo(
+		%Celeste,
+		"Realicemos una feria en el patio de la facu, no solo juntaremos el dinero necesario sino que también ayudaremos a emprendedores a difundir sus negocios, a cambio de que elles paguen una pequeña suma para poner su stand."
+	)
+	agendar_dialogo(
 		%Violeta,
 		"Mi papá tiene una carnicería y mi tía una librería. Proponemos la realización de una rifa en la cual sortearemos libros y una pata de ternera."
 	)
@@ -133,7 +138,7 @@ func presentar_propuestas():
 	agendar_pausa()
 	agendar_dialogo(
 		%Celeste,
-		"Podemos realizar una feria en el patio de la facu, donde no solo podremos juntar el dinero necesario sino también ayudar a emprendedores a difundir sus negocios y tener más ventas, a cambio de que elles paguen una pequeña suma para poner su stand."
+		"Realicemos una feria en el patio de la facu, no solo juntaremos el dinero necesario sino que también ayudaremos a emprendedores a difundir sus negocios, a cambio de que elles paguen una pequeña suma para poner su stand."
 	)
 	agendar_dialogo(
 		%Violeta,
