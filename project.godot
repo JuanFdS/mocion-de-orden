@@ -30,8 +30,8 @@ glossary/default_case_sensitive=true
 variables={
 "propuesta_ganadora": ""
 }
-text/letter_speed=0.05
-text/initial_text_reveal_skippable=false
+text/letter_speed=0.03
+text/initial_text_reveal_skippable=true
 text/text_reveal_skip_delay=0.1
 text/autoadvance_per_character_delay=0.1
 text/autoadvance_ignored_characters_enabled=true
@@ -50,7 +50,6 @@ layout/styles={
 "Default": {
 "export_overrides": {
 "box_size": "Vector2(800, 100)",
-"text_alignment": "1",
 "text_size": "30.0"
 },
 "inherits": "",

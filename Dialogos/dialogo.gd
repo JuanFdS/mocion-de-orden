@@ -8,6 +8,7 @@ var _postura
 var time_since_mouse_left = 5
 var mouse_hovering = false
 var borrandose = false
+var reaccionable = true
 @onready var text_label = $RichTextLabel
 
 signal borrado
@@ -16,19 +17,20 @@ signal fue_aprobado
 signal fue_rechazado
 
 func _ready():
-	%Intervenciones/DeAcuerdo.pressed.connect(self.reconfirmado)
-	%Intervenciones/EnContra.pressed.connect(self.rechazado)
-	%Intervenciones.get_children().map(func(boton): boton.visible = false)
-	var hoverable_nodes = [text_label, %Intervenciones/DeAcuerdo, %Intervenciones/EnContra]
-	hoverable_nodes.map(func(hoverable_node):
-		hoverable_node.mouse_entered.connect(func(): mouse_hovering = true)
-		hoverable_node.mouse_exited.connect(func(): mouse_hovering = false)
-	)
+	if reaccionable:
+		%Intervenciones/DeAcuerdo.pressed.connect(self.reconfirmado)
+		%Intervenciones/EnContra.pressed.connect(self.rechazado)
+		%Intervenciones.get_children().map(func(boton): boton.visible = false)
+		var hoverable_nodes = [text_label, %Intervenciones/DeAcuerdo, %Intervenciones/EnContra]
+		hoverable_nodes.map(func(hoverable_node):
+			hoverable_node.mouse_entered.connect(func(): mouse_hovering = true)
+			hoverable_node.mouse_exited.connect(func(): mouse_hovering = false)
+		)
+
 	text_label.layout_mode = 1
 	text_label.anchors_preset = PRESET_FULL_RECT
 	if texto:
 		text_label.text = texto
-	get_tree().create_timer(tiempo_hasta_que_se_borra).timeout.connect(self.paso_mucho_tiempo)
 
 func _process(delta):
 	if Engine.is_editor_hint():
@@ -45,6 +47,13 @@ func _process(delta):
 	text_label.modulate.r = 0.5 if mouse_hovered_recently else 1.0
 	text_label.modulate.b = 0.5 if mouse_hovered_recently else 1.0
 	text_label.modulate.g = 0.5 if mouse_hovered_recently else 1.0
+	tiempo_hasta_que_se_borra -= delta
+	if(tiempo_hasta_que_se_borra <= 0.0):
+		self.paso_mucho_tiempo()
+
+func realentizar():
+	velocidad_de_burbuja = velocidad_de_burbuja / 2.0
+	tiempo_hasta_que_se_borra = tiempo_hasta_que_se_borra * 2.0
 
 func postura():
 	return _postura

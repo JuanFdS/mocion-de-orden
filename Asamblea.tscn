@@ -1,8 +1,9 @@
-[gd_scene load_steps=26 format=3 uid="uid://cdu0pdab8ibpu"]
+[gd_scene load_steps=27 format=3 uid="uid://cdu0pdab8ibpu"]
 
 [ext_resource type="Script" path="res://Asamblea.gd" id="1_4bwin"]
 [ext_resource type="Script" path="res://ConfiguracionDelJuego.gd" id="1_lj83h"]
 [ext_resource type="Theme" uid="uid://cso6ppxd02rgv" path="res://Theme.tres" id="1_rfvxo"]
+[ext_resource type="Script" path="res://Timer.gd" id="2_vw8f6"]
 [ext_resource type="Texture2D" uid="uid://mmyj0egbd5y1" path="res://assets/Animosidad/barraDeAnimosidad.png" id="4_sf4o8"]
 [ext_resource type="Texture2D" uid="uid://b8heamkq5hj3c" path="res://assets/Animosidad/indicadorDeAnimosidad.png" id="5_xq5wh"]
 [ext_resource type="Texture2D" uid="uid://n70oraguqps4" path="res://assets/Animosidad/sillazos.png" id="6_egw6h"]
@@ -130,6 +131,10 @@ outline_size = 10
 [node name="Asamblea" type="Node2D"]
 script = ExtResource("1_4bwin")
 
+[node name="Timer" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_vw8f6")
+
 [node name="ConfiguracionDelJuego" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("1_lj83h")
@@ -154,6 +159,7 @@ theme = ExtResource("1_rfvxo")
 metadata/_edit_lock_ = true
 
 [node name="Violeta" type="Control" parent="CanvasLayer/Dialogos"]
+unique_name_in_owner = true
 layout_mode = 1
 anchor_right = 30.367
 anchor_bottom = 23.938
@@ -171,12 +177,13 @@ offset_bottom = 322.0
 
 [node name="Dos" type="Control" parent="CanvasLayer/Dialogos/Violeta"]
 anchors_preset = 0
-offset_left = 945.0
-offset_top = 182.0
-offset_right = 1094.0
-offset_bottom = 291.0
+offset_left = 855.0
+offset_top = 98.0
+offset_right = 1190.0
+offset_bottom = 273.0
 
 [node name="Rojo" type="Control" parent="CanvasLayer/Dialogos"]
+unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -199,6 +206,7 @@ offset_right = 1316.0
 offset_bottom = 273.0
 
 [node name="Celeste" type="Control" parent="CanvasLayer/Dialogos"]
+unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -216,8 +224,8 @@ offset_bottom = 295.0
 layout_mode = 3
 anchors_preset = 0
 offset_left = 1364.0
-offset_top = 184.0
-offset_right = 1566.0
+offset_top = 76.0
+offset_right = 1719.0
 offset_bottom = 281.0
 
 [node name="Animosidad" type="HSlider" parent="CanvasLayer"]

@@ -40,7 +40,51 @@ func _ready():
 	empezar_asamblea()
 
 func empezar_asamblea():
+	await decir('comienzoDeLaAsamblea')
+	await presentar_propuestas()
 	hacer_decir_dialogo_a_alguno()
+
+func presentar_propuestas():
+	crear_dialogo(%Violeta,
+					"Mi papá tiene una carnicería y mi tía una librería. Proponemos la realización de una rifa en la cual sortearemos libros y una pata de ternera.",
+					false).realentizar()
+	await %Timer.espera_larga()
+	crear_dialogo(%Rojo,
+					"Pero tu tía tiene vende puro best sellers.",
+					false).realentizar()
+	await %Timer.espera_larga()
+	var respuesta = crear_dialogo(%Celeste,
+					"Compa, pensemos en quienes son vegetarianes o veganes.",
+					false)
+	respuesta.realentizar()
+	await respuesta.borrado
+	
+	crear_dialogo(%Rojo,
+		"Podemos realizar una choripaneada abierta para toda la comunidad de la facu.",
+		false).realentizar()
+	await %Timer.espera_larga()
+	crear_dialogo(%Violeta,
+		"No me convence, porque la última vez que hicimos algo así tuvimos lío con el Decano.",
+		false).realentizar()
+	await %Timer.espera_larga()
+	respuesta = crear_dialogo(%Celeste,
+		"Ah, vos tampoco pensás en les compañeres vegetarianes.", false)
+	respuesta.realentizar()
+	await respuesta.borrado
+	
+	crear_dialogo(%Celeste,
+		"Podemos realizar una feria en el patio de la facu, donde no solo podremos juntar el dinero necesario sino también ayudar a emprendedores a difundir sus negocios y tener más ventas, a cambio de que elles paguen una pequeña suma para poner su stand.",
+		false).realentizar()
+	await %Timer.espera_larga()
+	crear_dialogo(%Violeta,
+		"No creo que se pueda, el patio de la facu es muy chico para eso.",
+		false).realentizar()
+	await %Timer.espera_larga()
+	respuesta = crear_dialogo(%Rojo,
+		"¿Con qué criterio vamos a elegir a les emprendedores que van a participar de la feria?", false)
+	respuesta.realentizar()
+	await respuesta.borrado
+
 
 func postura_ganadora():
 	var posturas = porotos_por_postura.keys()
@@ -49,44 +93,51 @@ func postura_ganadora():
 	)
 	return posturas.front()
 
+func decir(dialogo):
+	if Dialogic.current_timeline != null:
+		return
+	Dialogic.start(dialogo)
+	await Dialogic.timeline_ended
+
 func dar_resultado_final():
 	if sillazos:
 		return
-	if Dialogic.current_timeline != null:
-		return
+	
 	var postura = {VIOLETA: "[color=purple]Violeta[/color]",
 					ROJO: "[color=red]Rojo[/color]",
 					CELESTE: "[color=cyan]Celeste[/color]"}[postura_ganadora()]
 	Dialogic.VAR.propuesta_ganadora = postura
-	Dialogic.start('anunciarGanador')
+	await decir('anunciarGanador')
 
-func crear_dialogo():
+func crear_dialogo(partido, linea, reaccionable = true):
 	var config := %ConfiguracionDelJuego
-	var partido = partidos.next()
 	var representante = partido.get_children().pick_random()
 	var dialogo = DIALOGO.instantiate()
 	dialogo.tiempo_hasta_que_se_borra = config.tiempo_hasta_que_se_borra_burbuja_de_dialogo
 	dialogo.velocidad_de_burbuja = config.velocidad_de_burbuja_de_dialogo
-	dialogo.texto = dialog_lines.next()
+	dialogo.texto = linea
 	dialogo._postura = partido.name
+	dialogo.reaccionable = reaccionable
 	representante.add_child(dialogo)
 	
-	dialogos_en_curso.push_front(dialogo)
-	dialogo.fue_aprobado.connect(func():
-		sumar_poroto_a(dialogo.postura())
-	)
-	dialogo.fue_rechazado.connect(func():
-		restar_poroto_a(dialogo.postura())
-		restar_poroto_a(dialogo.postura())
-	)
-	dialogo.intervenido.connect(func():
-		self.dialogo_fue_intervenido()
-		dialogos_en_curso.map(func(un_dialogo): un_dialogo.borrarse())
-	)
-	dialogo.borrado.connect(func():
-		sumar_poroto_a(dialogo.postura())
-		dialogos_en_curso.erase(dialogo)
-	)
+
+	if reaccionable:
+		dialogos_en_curso.push_front(dialogo)
+		dialogo.fue_aprobado.connect(func():
+			sumar_poroto_a(dialogo.postura())
+		)
+		dialogo.fue_rechazado.connect(func():
+			restar_poroto_a(dialogo.postura())
+			restar_poroto_a(dialogo.postura())
+		)
+		dialogo.intervenido.connect(func():
+			self.dialogo_fue_intervenido()
+			dialogos_en_curso.map(func(un_dialogo): un_dialogo.borrarse())
+		)
+		dialogo.borrado.connect(func():
+			sumar_poroto_a(dialogo.postura())
+			dialogos_en_curso.erase(dialogo)
+		)
 
 	return dialogo
 
@@ -118,7 +169,7 @@ func hacer_decir_dialogo_a_alguno():
 		return
 	var config := %ConfiguracionDelJuego
 	
-	var dialogo = crear_dialogo()
+	var dialogo = crear_dialogo(partidos.next(), dialog_lines.next())
 	var tiempo_hasta_proximo_dialogo = obtener_tiempo_hasta_proximo_dialogo()
 
 	await Await.any([
