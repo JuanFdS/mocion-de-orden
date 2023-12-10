@@ -20,18 +20,20 @@ size_flags_vertical = 3
 theme = ExtResource("1_7oax5")
 alignment = 2
 script = ExtResource("1_8tedw")
+_postura = "Rojo"
 
-[node name="PanelContainer2" type="PanelContainer" parent="."]
+[node name="Burbuja" type="PanelContainer" parent="."]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer2"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Burbuja"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-text = "asdf"
+text = "Mi papá tiene una carnicería y mi tía una librería. Proponemos la realización de una rifa en la cual sortearemos libros y una pata de ternera."
 fit_content = true
 scroll_active = false
 

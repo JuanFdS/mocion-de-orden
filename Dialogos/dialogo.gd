@@ -5,7 +5,7 @@ extends Control
 var velocidad_de_burbuja := 0.0
 var tiempo_hasta_que_se_borra := 10.0
 var texto := ""
-var _postura
+@export var _postura: String
 var time_since_mouse_left = 5
 var mouse_hovering = false
 var borrandose = false
@@ -36,6 +36,17 @@ func _ready():
 	appear_tween.tween_property(self, "modulate:a", 1.0, 0.2).from(0.0)
 	if texto:
 		text_label.text = texto
+	
+	%Burbuja.self_modulate = color()
+
+func color() -> Color:
+	return Color.BLACK
+	# todavia esta en discusion el tema del color
+	return {
+		"Verde": Color.DARK_GREEN,
+		"Rojo": Color.DARK_RED,
+		"Celeste": Color.DARK_BLUE
+	}[_postura].darkened(0.75)
 
 func _process(delta):
 	if Engine.is_editor_hint():
@@ -51,9 +62,7 @@ func _process(delta):
 	if(%Intervenciones/DeAcuerdo.visible and not mouse_hovered_recently):
 		esconder_intervenciones(mouse_hovered_recently)
 	position.y -= delta * velocidad_de_burbuja
-	text_label.modulate.r = 0.5 if mouse_hovered_recently else 1.0
-	text_label.modulate.b = 0.5 if mouse_hovered_recently else 1.0
-	text_label.modulate.g = 0.5 if mouse_hovered_recently else 1.0
+	%Burbuja.self_modulate = color().darkened(0.5) if mouse_hovered_recently else color()
 	tiempo_hasta_que_se_borra -= delta
 	if(tiempo_hasta_que_se_borra <= 0.0):
 		self.paso_mucho_tiempo()

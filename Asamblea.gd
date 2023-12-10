@@ -2,9 +2,9 @@ extends Node2D
 
 const DIALOGO = preload("res://Dialogos/dialogo.tscn")
 
-const VIOLETA = "Violeta"
-const ROJO = "Rojo"
 const CELESTE = "Celeste"
+const ROJO = "Rojo"
+const VERDE = "Verde"
 
 var dialogos_barderos = RandomizedList.new([
 	"¡Son unos truchos!",
@@ -40,9 +40,9 @@ var dialogos_seguidos_sin_intervenir = 0
 var sillazos = false
 
 var porotos_por_postura = {
-	VIOLETA: 0,
+	CELESTE: 0,
 	ROJO: 0,
-	CELESTE: 0
+	VERDE: 0
 }
 
 func es_mujer(partido):
@@ -141,7 +141,7 @@ func reproducir_dialogos_agendados():
 
 func presentar_propuestas():
 	agendar_dialogo(
-		%Violeta,
+		%Celeste,
 		"Mi papá tiene una carnicería y mi tía una librería. Proponemos la realización de una rifa en la cual sortearemos libros y una pata de ternera."
 	)
 	agendar_dialogo(
@@ -149,7 +149,7 @@ func presentar_propuestas():
 		"Pero tu tia vende puro best sellers."
 	)
 	agendar_dialogo(
-		%Celeste,
+		%Verde,
 		"Compa, pensemos en quienes son vegetarianes o veganes."
 	)
 	agendar_pausa()
@@ -158,20 +158,20 @@ func presentar_propuestas():
 		"Podemos realizar una choripaneada abierta para toda la comunidad de la facu."
 	)
 	agendar_dialogo(
-		%Violeta,
+		%Celeste,
 		"No me convence, porque la última vez que hicimos algo así tuvimos lío con el Decano."
 	)
 	agendar_dialogo(
-		%Celeste,
+		%Verde,
 		"Ah, vos tampoco pensás en les compañeres vegetarianes."
 	)
 	agendar_pausa()
 	agendar_dialogo(
-		%Celeste,
+		%Verde,
 		"Realicemos una feria en el patio de la facu, no solo juntaremos el dinero necesario sino que también ayudaremos a emprendedores a difundir sus negocios, a cambio de que elles paguen una pequeña suma para poner su stand."
 	)
 	agendar_dialogo(
-		%Violeta,
+		%Celeste,
 		"No creo que se pueda, el patio de la facu es muy chico para eso."
 	)
 	agendar_dialogo(
@@ -197,21 +197,24 @@ func dar_resultado_final():
 	if sillazos:
 		return
 	
-	var postura = {VIOLETA: "rifa de libros y una pata de ternera.",
+	var postura = {CELESTE: "rifa de libros y una pata de ternera.",
 					ROJO: "choripaneada abierta para toda la comunidad de la facu",
-					CELESTE: "feria en el patio de la facu"}[postura_ganadora()]
+					VERDE: "feria en el patio de la facu"}[postura_ganadora()]
 	Dialogic.VAR.votos_rojo = str(max(0, porotos_por_postura[ROJO]))
-	Dialogic.VAR.votos_violeta = str(max(0, porotos_por_postura[VIOLETA]))
 	Dialogic.VAR.votos_celeste = str(max(0, porotos_por_postura[CELESTE]))
+	Dialogic.VAR.votos_verde = str(max(0, porotos_por_postura[VERDE]))
 	Dialogic.VAR.propuesta_ganadora = postura
+	Dialogic.text_signal.connect(func(arg):
+		if arg == "ganador_anunciado":
+			animar_ganador()
+	)
 	await decir('anunciarGanador')
-	animar_ganador()
 
 func animar_ganador():
 	{
-		VIOLETA: %Violeta,
+		CELESTE: %Celeste,
 		ROJO: %Rojo,
-		CELESTE: %Celeste
+		VERDE: %Verde
 	}[postura_ganadora()].gano()
 
 func crear_dialogo(partido, linea, reaccionable = true, bardero = false):

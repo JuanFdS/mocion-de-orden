@@ -33,7 +33,7 @@ variables={
 "propuesta_ganadora": "",
 "votos_celeste": "0",
 "votos_rojo": "0",
-"votos_violeta": "0"
+"votos_verde": "0"
 }
 text/letter_speed=0.03
 text/initial_text_reveal_skippable=true

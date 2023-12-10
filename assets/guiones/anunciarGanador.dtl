@@ -1,5 +1,5 @@
 moderador: Compañeres, vayamos cerrando el debate y pasemos a votar.
-moderador: Votos para la propuesta de la agrupación [color=red]Roja[/color]\: {votos_rojo}
-moderador: Votos para la propuesta de la agrupación [color=purple]Violeta[/color]\: {votos_violeta}
 moderador: Votos para la propuesta de la agrupación [color=cyan]Celeste[/color]\: {votos_celeste}
-moderador: La propuesta mas votada es\: [pause=1] {propuesta_ganadora}
+moderador: Votos para la propuesta de la agrupación [color=red]Roja[/color]\: {votos_rojo}
+moderador: Votos para la propuesta de la agrupación [color=green]Verde[/color]\: {votos_verde}
+moderador: La propuesta mas votada es\: [pause=1][signal=ganador_anunciado] {propuesta_ganadora}

@@ -5,6 +5,7 @@ const ASAMBLEA_PATH = "res://Asamblea.tscn"
 var load_progress = 0.0
 
 func _ready():
+	$AnimationPlayer.play("iniciar_titulo")
 	ResourceLoader.load_threaded_request(ASAMBLEA_PATH)
 	%Comenzar.pressed.connect(func():
 		get_tree().change_scene_to_packed(
