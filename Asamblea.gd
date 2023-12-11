@@ -55,9 +55,12 @@ func companiere(partido):
 	return "compañera" if es_mujer(partido) else "compañero"
 
 func _ready():
+	%MusicaDeFondo.play()
 	%Animosidad.sillazos_alcanzados.connect(func():
 		if(not sillazos):
 			sillazos = true
+			%MusicaDeFondo.stop()
+			%MusicaDeSillazos.play()
 			dialogos_agendados.clear()
 			%Sillazos.activar()
 	)
@@ -73,7 +76,10 @@ func empezar_asamblea():
 	await %Timer.espera_corta()
 	await dar_resultado_final()
 	
-	%Epilogo.mostrar_resultado("Celeste")
+	if(sillazos):
+		%Reintentar.visible = true
+	else:
+		%Epilogo.mostrar_resultado("Celeste")
 
 func agendar_dialogo(partido, linea):
 	dialogos_agendados.push_back(DialogoAgendado.new(partido, linea))

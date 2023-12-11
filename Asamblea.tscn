@@ -25,14 +25,10 @@
 [ext_resource type="Texture2D" uid="uid://dnw4eafutkxf3" path="res://assets/Arte/Hand Player.png" id="12_1rce2"]
 [ext_resource type="Script" path="res://Sillazos.gd" id="12_bl25u"]
 [ext_resource type="Texture2D" uid="uid://dbe72ey1jfjr" path="res://assets/delegades/Frank/Angry/Angry_00005.png" id="12_elfs6"]
-[ext_resource type="Texture2D" uid="uid://jv2ydlypoy5x" path="res://assets/sillazos/silla.png" id="12_rknea"]
 [ext_resource type="Texture2D" uid="uid://mj67pxie6xfx" path="res://assets/delegades/Frank/Angry/Angry_00006.png" id="13_3q0vg"]
 [ext_resource type="Texture2D" uid="uid://lcduvxxbrdo7" path="res://assets/Arte/reloj.png" id="13_cofqe"]
-[ext_resource type="Texture2D" uid="uid://bnrhxdhgbubly" path="res://assets/sillazos/libro.png" id="13_t3wnu"]
 [ext_resource type="Texture2D" uid="uid://gj8avo53cd8n" path="res://assets/delegades/Frank/Angry/Angry_00007.png" id="14_5350g"]
-[ext_resource type="Texture2D" uid="uid://4dkwkq03t58" path="res://assets/sillazos/pilonDeHojas.png" id="14_dvetx"]
 [ext_resource type="Texture2D" uid="uid://bdya1caajysre" path="res://assets/delegades/Frank/Angry/Angry_00008.png" id="15_habac"]
-[ext_resource type="Texture2D" uid="uid://cgjkaxkvs84s5" path="res://assets/sillazos/chaboncin.png" id="15_udjsh"]
 [ext_resource type="Texture2D" uid="uid://cojybull7qp8r" path="res://assets/delegades/Frank/Angry/Angry_00009.png" id="16_aum6m"]
 [ext_resource type="Texture2D" uid="uid://cyxkajpabn45k" path="res://assets/delegades/Frank/Angry/Angry_00010.png" id="17_psluv"]
 [ext_resource type="Texture2D" uid="uid://dkidosirtvbnd" path="res://assets/delegades/Frank/Angry/Angry_00011.png" id="18_pvv48"]
@@ -2069,6 +2065,9 @@
 [ext_resource type="Texture2D" uid="uid://cla3teua1n0da" path="res://assets/sillazos/Sillazos Atras/Sillazos Atras_00118.png" id="2058_w5vrc"]
 [ext_resource type="Texture2D" uid="uid://bnn6ad410n3n3" path="res://assets/sillazos/Sillazos Atras/Sillazos Atras_00119.png" id="2059_o18mr"]
 [ext_resource type="Script" path="res://Epilogo.gd" id="2069_dhvms"]
+[ext_resource type="FontFile" uid="uid://cmoevjjpa8e0m" path="res://assets/fonts/Fonts logo y anuncios/my_coffee_break/My Coffee Break.ttf" id="2069_pmpfi"]
+[ext_resource type="AudioStream" uid="uid://cjv2cyfa76t25" path="res://assets/musica/Mocion de orden tema fondo.wav" id="2070_1jwdw"]
+[ext_resource type="AudioStream" uid="uid://bjrh36dcf2vab" path="res://assets/musica/Sillazos nuevo mejor 3.wav" id="2071_ftyim"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_30orx"]
 content_margin_left = 30.0
@@ -8462,16 +8461,19 @@ _data = {
 "sillazos": SubResource("Animation_0hu0n")
 }
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hpxvb"]
-particles_animation = true
-particles_anim_h_frames = 1
-particles_anim_v_frames = 1
-particles_anim_loop = false
-
 [sub_resource type="LabelSettings" id="LabelSettings_japjy"]
 font_size = 80
 font_color = Color(0, 0, 0, 1)
 outline_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s6dg8"]
+bg_color = Color(1, 1, 1, 1)
+expand_margin_left = 10.0
+expand_margin_top = 15.0
+expand_margin_right = 10.0
+expand_margin_bottom = 80.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5fn0n"]
 
 [node name="Asamblea" type="Node2D"]
 script = ExtResource("1_4bwin")
@@ -8490,6 +8492,7 @@ tiempo_entre_dialogos = 3.5
 [node name="Tutorial" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
 layer = 10
+visible = false
 script = ExtResource("4_7ngoc")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Tutorial"]
@@ -9574,7 +9577,6 @@ centered = false
 
 [node name="Sillazos" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
-visible = false
 script = ExtResource("12_bl25u")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sillazos"]
@@ -9604,140 +9606,6 @@ pivot_offset = Vector2(100, 100)
 texture = ExtResource("6_egw6h")
 expand_mode = 1
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="Sillazos"]
-position = Vector2(-79, 773)
-emitting = false
-amount = 4
-lifetime = 5.0
-explosiveness = 0.3
-randomness = 0.17
-lifetime_randomness = 0.41
-texture = ExtResource("12_rknea")
-direction = Vector2(1, -1)
-spread = 30.0
-gravity = Vector2(0, 500)
-initial_velocity_min = 1000.0
-initial_velocity_max = 1000.0
-angular_velocity_min = 50.0
-angular_velocity_max = 200.0
-scale_amount_min = 0.7
-
-[node name="CPUParticles2D2" type="CPUParticles2D" parent="Sillazos"]
-material = SubResource("CanvasItemMaterial_hpxvb")
-position = Vector2(1998, 717)
-emitting = false
-amount = 4
-lifetime = 5.0
-explosiveness = 0.3
-randomness = 0.17
-lifetime_randomness = 0.41
-texture = ExtResource("12_rknea")
-direction = Vector2(-1, -1)
-spread = 30.0
-gravity = Vector2(0, 500)
-initial_velocity_min = 1000.0
-initial_velocity_max = 1000.0
-angular_velocity_min = 50.0
-angular_velocity_max = 200.0
-scale_amount_min = 0.7
-anim_offset_max = 1.0
-
-[node name="CPUParticles2D3" type="CPUParticles2D" parent="Sillazos"]
-position = Vector2(-79, 773)
-emitting = false
-amount = 2
-lifetime = 5.0
-explosiveness = 0.3
-randomness = 0.17
-lifetime_randomness = 0.41
-texture = ExtResource("13_t3wnu")
-direction = Vector2(1, -1)
-spread = 30.0
-gravity = Vector2(0, 500)
-initial_velocity_min = 1000.0
-initial_velocity_max = 1000.0
-angular_velocity_min = 50.0
-angular_velocity_max = 200.0
-scale_amount_min = 0.7
-
-[node name="CPUParticles2D4" type="CPUParticles2D" parent="Sillazos"]
-material = SubResource("CanvasItemMaterial_hpxvb")
-position = Vector2(1998, 717)
-emitting = false
-amount = 2
-lifetime = 5.0
-explosiveness = 0.3
-randomness = 0.17
-lifetime_randomness = 0.41
-texture = ExtResource("13_t3wnu")
-direction = Vector2(-1, -1)
-spread = 30.0
-gravity = Vector2(0, 500)
-initial_velocity_min = 1000.0
-initial_velocity_max = 1000.0
-angular_velocity_min = 50.0
-angular_velocity_max = 200.0
-scale_amount_min = 0.7
-anim_offset_max = 1.0
-
-[node name="CPUParticles2D5" type="CPUParticles2D" parent="Sillazos"]
-position = Vector2(-79, 773)
-emitting = false
-amount = 3
-lifetime = 5.0
-explosiveness = 0.3
-randomness = 0.17
-lifetime_randomness = 0.41
-texture = ExtResource("14_dvetx")
-direction = Vector2(1, -1)
-spread = 30.0
-gravity = Vector2(0, 500)
-initial_velocity_min = 1000.0
-initial_velocity_max = 1000.0
-angular_velocity_min = 50.0
-angular_velocity_max = 200.0
-scale_amount_min = 0.7
-
-[node name="CPUParticles2D6" type="CPUParticles2D" parent="Sillazos"]
-material = SubResource("CanvasItemMaterial_hpxvb")
-position = Vector2(1998, 717)
-emitting = false
-amount = 3
-lifetime = 5.0
-explosiveness = 0.3
-randomness = 0.17
-lifetime_randomness = 0.41
-texture = ExtResource("14_dvetx")
-direction = Vector2(-1, -1)
-spread = 30.0
-gravity = Vector2(0, 500)
-initial_velocity_min = 1000.0
-initial_velocity_max = 1000.0
-angular_velocity_min = 50.0
-angular_velocity_max = 200.0
-scale_amount_min = 0.7
-anim_offset_max = 1.0
-
-[node name="CPUParticles2D8" type="CPUParticles2D" parent="Sillazos"]
-material = SubResource("CanvasItemMaterial_hpxvb")
-position = Vector2(1998, 717)
-emitting = false
-amount = 1
-lifetime = 10.0
-explosiveness = 0.3
-randomness = 0.17
-lifetime_randomness = 0.41
-texture = ExtResource("15_udjsh")
-direction = Vector2(-1, -1)
-spread = 30.0
-gravity = Vector2(0, 500)
-initial_velocity_min = 1000.0
-initial_velocity_max = 1000.0
-angular_velocity_min = 50.0
-angular_velocity_max = 200.0
-scale_amount_min = 0.7
-anim_offset_max = 1.0
-
 [node name="Label" type="Label" parent="Sillazos"]
 offset_left = 452.0
 offset_top = 99.0
@@ -9746,9 +9614,37 @@ offset_bottom = 251.0
 text = "SILLAZOS EN LA ASAMBLEA"
 label_settings = SubResource("LabelSettings_japjy")
 
+[node name="Reintentar" type="Button" parent="Sillazos"]
+unique_name_in_owner = true
+offset_left = 908.0
+offset_top = 714.0
+offset_right = 1005.0
+offset_bottom = 754.0
+rotation = 0.0657367
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.266667, 0.266667, 0.266667, 1)
+theme_override_fonts/font = ExtResource("2069_pmpfi")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_s6dg8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_s6dg8")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_s6dg8")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_5fn0n")
+text = "REINTENTAR"
+
+[node name="FadeOut" type="ColorRect" parent="Sillazos"]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
 [node name="Epilogo" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
 layer = 11
+visible = false
 script = ExtResource("2069_dhvms")
 
 [node name="Contenido" type="Control" parent="Epilogo"]
@@ -9795,6 +9691,7 @@ theme_override_font_sizes/normal_font_size = 60
 text = "El evento fue un desastre, hubo gente que se agarró a las piñas, la facultad quedó sucia y el decano prohibió la realización de eventos en el patio. Intentá de nuevo con otra idea :(."
 
 [node name="Reintentar" type="Button" parent="Epilogo/Contenido"]
+layout_mode = 0
 offset_left = 942.0
 offset_top = 868.0
 offset_right = 1329.0
@@ -9803,6 +9700,14 @@ theme_override_colors/font_hover_color = Color(0, 0.733333, 0, 1)
 theme_override_fonts/font = ExtResource("4_egrk7")
 theme_override_font_sizes/font_size = 60
 text = "Jugar de nuevo"
+
+[node name="MusicaDeFondo" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("2070_1jwdw")
+
+[node name="MusicaDeSillazos" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("2071_ftyim")
 
 [editable path="Tutorial/Control/Pasos/Uno/Dialogo"]
 [editable path="Tutorial/Control/Pasos/InteraccionConComentario/Dialogo"]
