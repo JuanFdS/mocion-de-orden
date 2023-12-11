@@ -79,7 +79,7 @@ func empezar_asamblea():
 	if(sillazos):
 		%Reintentar.visible = true
 	else:
-		%Epilogo.mostrar_resultado("Celeste")
+		%Epilogo.mostrar_resultado(postura_ganadora())
 
 func agendar_dialogo(partido, linea):
 	dialogos_agendados.push_back(DialogoAgendado.new(partido, linea))

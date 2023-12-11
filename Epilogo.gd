@@ -16,7 +16,10 @@ func _ready():
 	)
 
 func mostrar_resultado(postura):
-	titulo.text = "[center]Propuesta ganadora: %s[/center]" % asamblea.propuesta_ganadora()
+	titulo.text = ""
+	titulo.append_text("[center][b]Propuesta ganadora[/b][/center]")
+	titulo.newline()
+	titulo.append_text("[center]%s[/center]" % asamblea.propuesta_ganadora())
 	descripcion.text = texto_de_descripcion(postura)
 
 	$Contenido.visible = true

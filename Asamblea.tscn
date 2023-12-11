@@ -9644,7 +9644,6 @@ color = Color(0, 0, 0, 0)
 [node name="Epilogo" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
 layer = 11
-visible = false
 script = ExtResource("2069_dhvms")
 
 [node name="Contenido" type="Control" parent="Epilogo"]
@@ -9674,9 +9673,11 @@ offset_left = 187.0
 offset_top = 139.0
 offset_right = -191.0
 offset_bottom = -412.0
+theme_override_fonts/bold_font = ExtResource("2069_pmpfi")
 theme_override_font_sizes/normal_font_size = 80
+theme_override_font_sizes/bold_font_size = 80
 bbcode_enabled = true
-text = "[center]Propuesta ganadora: [/center]"
+text = "[center][b]Propuesta[/b] ganadora: [/center]"
 
 [node name="Descripcion" type="RichTextLabel" parent="Epilogo/Contenido"]
 layout_mode = 1
