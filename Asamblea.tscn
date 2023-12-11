@@ -1,4 +1,4 @@
-[gd_scene load_steps=2088 format=3 uid="uid://cdu0pdab8ibpu"]
+[gd_scene load_steps=2089 format=3 uid="uid://cdu0pdab8ibpu"]
 
 [ext_resource type="Script" path="res://Asamblea.gd" id="1_4bwin"]
 [ext_resource type="Script" path="res://ConfiguracionDelJuego.gd" id="1_lj83h"]
@@ -2068,6 +2068,7 @@
 [ext_resource type="Texture2D" uid="uid://ct57j50yacoeg" path="res://assets/sillazos/Sillazos Atras/Sillazos Atras_00117.png" id="2057_dgdph"]
 [ext_resource type="Texture2D" uid="uid://cla3teua1n0da" path="res://assets/sillazos/Sillazos Atras/Sillazos Atras_00118.png" id="2058_w5vrc"]
 [ext_resource type="Texture2D" uid="uid://bnn6ad410n3n3" path="res://assets/sillazos/Sillazos Atras/Sillazos Atras_00119.png" id="2059_o18mr"]
+[ext_resource type="Script" path="res://Epilogo.gd" id="2069_dhvms"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_30orx"]
 content_margin_left = 30.0
@@ -9744,6 +9745,64 @@ offset_right = 1497.0
 offset_bottom = 251.0
 text = "SILLAZOS EN LA ASAMBLEA"
 label_settings = SubResource("LabelSettings_japjy")
+
+[node name="Epilogo" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+layer = 11
+script = ExtResource("2069_dhvms")
+
+[node name="Contenido" type="Control" parent="Epilogo"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_rfvxo")
+
+[node name="ColorRect" type="ColorRect" parent="Epilogo/Contenido"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Titulo" type="RichTextLabel" parent="Epilogo/Contenido"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 187.0
+offset_top = 139.0
+offset_right = -191.0
+offset_bottom = -412.0
+theme_override_font_sizes/normal_font_size = 80
+bbcode_enabled = true
+text = "[center]Propuesta ganadora: [/center]"
+
+[node name="Descripcion" type="RichTextLabel" parent="Epilogo/Contenido"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 187.0
+offset_top = 462.0
+offset_right = -191.0
+offset_bottom = 140.0
+theme_override_font_sizes/normal_font_size = 60
+text = "El evento fue un desastre, hubo gente que se agarró a las piñas, la facultad quedó sucia y el decano prohibió la realización de eventos en el patio. Intentá de nuevo con otra idea :(."
+
+[node name="Reintentar" type="Button" parent="Epilogo/Contenido"]
+offset_left = 942.0
+offset_top = 868.0
+offset_right = 1329.0
+offset_bottom = 928.0
+theme_override_colors/font_hover_color = Color(0, 0.733333, 0, 1)
+theme_override_fonts/font = ExtResource("4_egrk7")
+theme_override_font_sizes/font_size = 60
+text = "Jugar de nuevo"
 
 [editable path="Tutorial/Control/Pasos/Uno/Dialogo"]
 [editable path="Tutorial/Control/Pasos/InteraccionConComentario/Dialogo"]

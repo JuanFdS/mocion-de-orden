@@ -71,7 +71,9 @@ func empezar_asamblea():
 	await presentar_propuestas()
 	# esto solo se usaria si vamos por el flujo de tener dialogos random:
 	await %Timer.espera_corta()
-	dar_resultado_final()
+	await dar_resultado_final()
+	
+	%Epilogo.mostrar_resultado("Celeste")
 
 func agendar_dialogo(partido, linea):
 	dialogos_agendados.push_back(DialogoAgendado.new(partido, linea))
@@ -193,17 +195,21 @@ func decir(dialogo):
 	Dialogic.start(dialogo)
 	await Dialogic.timeline_ended
 
+func propuesta_ganadora():
+	return {
+		CELESTE: "rifa de libros y una pata de ternera.",
+		ROJO: "choripaneada abierta para toda la comunidad de la facu",
+		VERDE: "feria en el patio de la facu"
+	}[postura_ganadora()]
+
 func dar_resultado_final():
 	if sillazos:
 		return
-	
-	var postura = {CELESTE: "rifa de libros y una pata de ternera.",
-					ROJO: "choripaneada abierta para toda la comunidad de la facu",
-					VERDE: "feria en el patio de la facu"}[postura_ganadora()]
+
 	Dialogic.VAR.votos_rojo = str(max(0, porotos_por_postura[ROJO]))
 	Dialogic.VAR.votos_celeste = str(max(0, porotos_por_postura[CELESTE]))
 	Dialogic.VAR.votos_verde = str(max(0, porotos_por_postura[VERDE]))
-	Dialogic.VAR.propuesta_ganadora = postura
+	Dialogic.VAR.propuesta_ganadora = propuesta_ganadora()
 	Dialogic.text_signal.connect(func(arg):
 		if arg == "ganador_anunciado":
 			animar_ganador()
