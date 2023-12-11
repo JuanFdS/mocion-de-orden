@@ -35,7 +35,7 @@ func _ready():
 	var appear_tween = create_tween()
 	appear_tween.tween_property(self, "modulate:a", 1.0, 0.2).from(0.0)
 	if texto:
-		text_label.text = texto
+		text_label.text = "[center]%s[/center]" % texto
 	
 	%Burbuja.self_modulate = color()
 

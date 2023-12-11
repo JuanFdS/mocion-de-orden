@@ -1,4 +1,4 @@
-[gd_scene load_steps=2089 format=3 uid="uid://cdu0pdab8ibpu"]
+[gd_scene load_steps=2090 format=3 uid="uid://cdu0pdab8ibpu"]
 
 [ext_resource type="Script" path="res://Asamblea.gd" id="1_4bwin"]
 [ext_resource type="Script" path="res://ConfiguracionDelJuego.gd" id="1_lj83h"]
@@ -2098,6 +2098,25 @@ func _ready():
 
 func mover_reloj():
 	$Reloj.esperar(2.0)
+"
+
+[sub_resource type="GDScript" id="GDScript_mjq7e"]
+script/source = "@tool
+extends Control
+
+@export var en_contra: TextureButton
+
+var accumulated_time = 0
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	en_contra.pivot_offset = Vector2.ONE * 50.0
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	accumulated_time += delta * 10.0
+	en_contra.scale = Vector2.ONE + Vector2.ONE * cos(accumulated_time) / 10.0
 "
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_lj7bk"]
@@ -8492,7 +8511,6 @@ tiempo_entre_dialogos = 3.5
 [node name="Tutorial" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
 layer = 10
-visible = false
 script = ExtResource("4_7ngoc")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Tutorial"]
@@ -8700,15 +8718,6 @@ offset_bottom = 344.0
 _postura = "Celeste"
 reaccionable = false
 
-[node name="Burbuja" parent="Tutorial/Control/Pasos/Uno/Dialogo" index="0"]
-self_modulate = Color(0, 0, 0, 1)
-
-[node name="DeAcuerdo" parent="Tutorial/Control/Pasos/Uno/Dialogo/Intervenciones" index="0"]
-visible = true
-
-[node name="EnContra" parent="Tutorial/Control/Pasos/Uno/Dialogo/Intervenciones" index="1"]
-visible = true
-
 [node name="InteraccionConComentario" type="Control" parent="Tutorial/Control/Pasos"]
 visible = false
 anchors_preset = 0
@@ -8738,15 +8747,6 @@ offset_bottom = 344.0
 _postura = "Celeste"
 reaccionable = false
 
-[node name="Burbuja" parent="Tutorial/Control/Pasos/InteraccionConComentario/Dialogo" index="0"]
-self_modulate = Color(0, 0, 0, 1)
-
-[node name="DeAcuerdo" parent="Tutorial/Control/Pasos/InteraccionConComentario/Dialogo/Intervenciones" index="0"]
-visible = true
-
-[node name="EnContra" parent="Tutorial/Control/Pasos/InteraccionConComentario/Dialogo/Intervenciones" index="1"]
-visible = true
-
 [node name="DejarPasarComentario" type="Control" parent="Tutorial/Control/Pasos"]
 visible = false
 anchors_preset = 0
@@ -8774,9 +8774,6 @@ offset_right = 562.0
 offset_bottom = 344.0
 _postura = "Celeste"
 reaccionable = false
-
-[node name="Burbuja" parent="Tutorial/Control/Pasos/DejarPasarComentario/Dialogo" index="0"]
-self_modulate = Color(0, 0, 0, 1)
 
 [node name="CuandoHayBardo" type="Control" parent="Tutorial/Control/Pasos"]
 visible = false
@@ -8922,6 +8919,44 @@ texture_progress = ExtResource("13_cofqe")
 tint_progress = Color(0, 0, 0, 0.392157)
 script = ExtResource("10_7wo0l")
 
+[node name="FrenaLosBardos" type="Control" parent="Tutorial/Control/Pasos" node_paths=PackedStringArray("en_contra")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_mjq7e")
+en_contra = NodePath("Dialogo/Intervenciones/EnContra")
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Tutorial/Control/Pasos/FrenaLosBardos"]
+clip_contents = false
+layout_mode = 0
+offset_left = 694.0
+offset_top = 114.0
+offset_right = 1910.0
+offset_bottom = 534.0
+theme_override_fonts/normal_font = ExtResource("4_egrk7")
+theme_override_font_sizes/normal_font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxFlat_30orx")
+text = "OJO, si dejas pasar muchos comentarios sin moderar, van a empezar a insultarse.
+
+Si dejas pasar insultos va a aumentar el descontento.
+frená esos comentarios apenas aparecen."
+fit_content = true
+
+[node name="Dialogo" parent="Tutorial/Control/Pasos/FrenaLosBardos" instance=ExtResource("4_31087")]
+layout_mode = 1
+offset_left = 148.0
+offset_top = 67.0
+offset_right = 562.0
+offset_bottom = 344.0
+_postura = "Celeste"
+reaccionable = false
+
+[node name="RichTextLabel" parent="Tutorial/Control/Pasos/FrenaLosBardos/Dialogo/Burbuja" index="0"]
+text = "Andá a agarrar la pala, ladri"
+
 [node name="Cinco" type="Control" parent="Tutorial/Control/Pasos"]
 visible = false
 layout_mode = 1
@@ -9025,6 +9060,7 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="PorEmpezar" type="Control" parent="Tutorial/Control/Pasos"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -9644,6 +9680,7 @@ color = Color(0, 0, 0, 0)
 [node name="Epilogo" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
 layer = 11
+visible = false
 script = ExtResource("2069_dhvms")
 
 [node name="Contenido" type="Control" parent="Epilogo"]
@@ -9713,3 +9750,4 @@ stream = ExtResource("2071_ftyim")
 [editable path="Tutorial/Control/Pasos/Uno/Dialogo"]
 [editable path="Tutorial/Control/Pasos/InteraccionConComentario/Dialogo"]
 [editable path="Tutorial/Control/Pasos/DejarPasarComentario/Dialogo"]
+[editable path="Tutorial/Control/Pasos/FrenaLosBardos/Dialogo"]
