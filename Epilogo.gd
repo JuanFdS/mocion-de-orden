@@ -16,6 +16,7 @@ func _ready():
 	)
 
 func mostrar_resultado(postura):
+	visible = true
 	titulo.text = ""
 	titulo.append_text("[center][b]Propuesta ganadora[/b][/center]")
 	titulo.newline()

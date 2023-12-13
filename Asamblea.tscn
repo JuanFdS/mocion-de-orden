@@ -9680,10 +9680,10 @@ color = Color(0, 0, 0, 0)
 [node name="Epilogo" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
 layer = 11
-visible = false
 script = ExtResource("2069_dhvms")
 
 [node name="Contenido" type="Control" parent="Epilogo"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
