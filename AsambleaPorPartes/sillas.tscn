@@ -1,0 +1,54 @@
+[gd_scene load_steps=3 format=3 uid="uid://c2nv707ghu5wn"]
+
+[ext_resource type="Texture2D" uid="uid://b51naoyxdaqvl" path="res://assets/Arte/silla beige.png" id="1_58idw"]
+[ext_resource type="Texture2D" uid="uid://i5ndbjvbxy02" path="res://assets/Arte/silla marron.png" id="2_kwqes"]
+
+[node name="Sillas" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = -1
+layout_mode = 0
+offset_left = 449.0
+offset_top = 343.0
+offset_right = 1272.0
+offset_bottom = 1480.0
+scale = Vector2(0.239999, 0.239999)
+texture = ExtResource("1_58idw")
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+z_index = -1
+layout_mode = 0
+offset_left = 1678.0
+offset_top = 503.0
+offset_right = 2501.0
+offset_bottom = 1640.0
+scale = Vector2(0.239999, 0.239999)
+texture = ExtResource("1_58idw")
+flip_h = true
+
+[node name="TextureRect3" type="TextureRect" parent="."]
+z_index = -1
+layout_mode = 0
+offset_left = 1006.0
+offset_top = 410.0
+offset_right = 1829.0
+offset_bottom = 1547.0
+rotation = -0.0777229
+scale = Vector2(0.230405, 0.230405)
+texture = ExtResource("1_58idw")
+flip_h = true
+
+[node name="TextureRect4" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -75.0
+offset_top = 442.0
+offset_right = 1923.0
+offset_bottom = 2664.0
+rotation = -0.000631414
+scale = Vector2(0.150646, 0.150646)
+texture = ExtResource("2_kwqes")
+flip_h = true

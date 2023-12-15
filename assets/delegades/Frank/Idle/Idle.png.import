@@ -2,22 +2,22 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dfs7k1rk4x1vd"
-path="res://.godot/imported/Happy_00000.png-71c7ca0cf98703673828c5537c3a11c8.ctex"
+uid="uid://bqno4kc165vi5"
+path="res://.godot/imported/Idle.png-17c15ef6f8c2a7bebcbbedef29d36225.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/delegades/Frank/Happy/Happy_00000.png"
-dest_files=["res://.godot/imported/Happy_00000.png-71c7ca0cf98703673828c5537c3a11c8.ctex"]
+source_file="res://assets/delegades/Frank/Idle/Idle.png"
+dest_files=["res://.godot/imported/Idle.png-17c15ef6f8c2a7bebcbbedef29d36225.ctex"]
 
 [params]
 
 compress/mode=0
 compress/high_quality=false
-compress/lossy_quality=0.1
+compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0

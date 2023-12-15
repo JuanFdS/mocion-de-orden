@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://ql5wq6nhksb2"]
+
+[ext_resource type="SpriteFrames" uid="uid://cwwsxqc1pksck" path="res://AsambleaPorPartes/frank_spriteframes.tres" id="1_r0thr"]
+
+[node name="Delegado" type="AnimatedSprite2D"]
+z_index = 1
+position = Vector2(321, 724)
+scale = Vector2(1.3, 1.3)
+sprite_frames = ExtResource("1_r0thr")
+animation = &"Idle"
+autoplay = "Idle"
