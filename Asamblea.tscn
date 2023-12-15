@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://cdu0pdab8ibpu"]
+[gd_scene load_steps=40 format=3 uid="uid://cdu0pdab8ibpu"]
 
 [ext_resource type="Script" path="res://Asamblea.gd" id="1_4bwin"]
 [ext_resource type="Script" path="res://ConfiguracionDelJuego.gd" id="1_lj83h"]
@@ -21,10 +21,7 @@
 [ext_resource type="Script" path="res://Sillazos.gd" id="12_bl25u"]
 [ext_resource type="Texture2D" uid="uid://lcduvxxbrdo7" path="res://assets/Arte/reloj.png" id="13_cofqe"]
 [ext_resource type="PackedScene" uid="uid://ql5wq6nhksb2" path="res://AsambleaPorPartes/frank.tscn" id="18_fqvo0"]
-[ext_resource type="PackedScene" uid="uid://c5mwdtnyt2xse" path="res://AsambleaPorPartes/anto.tscn" id="19_0sb5m"]
-[ext_resource type="PackedScene" uid="uid://8l2a6u12q225" path="res://AsambleaPorPartes/bichito.tscn" id="20_e4ciw"]
 [ext_resource type="PackedScene" uid="uid://clm5mipja132f" path="res://AsambleaPorPartes/siluetas.tscn" id="20_un8jc"]
-[ext_resource type="PackedScene" uid="uid://c2nv707ghu5wn" path="res://AsambleaPorPartes/sillas.tscn" id="21_iw6uh"]
 [ext_resource type="PackedScene" uid="uid://bj126ogg82hd8" path="res://AsambleaPorPartes/sillazos_animados.tscn" id="22_jg7pl"]
 [ext_resource type="Script" path="res://Epilogo.gd" id="2069_dhvms"]
 [ext_resource type="FontFile" uid="uid://cmoevjjpa8e0m" path="res://assets/fonts/Fonts logo y anuncios/my_coffee_break/My Coffee Break.ttf" id="2069_pmpfi"]
@@ -923,7 +920,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("6_ekcw6")
 
-[node name="Delegado" parent="CanvasLayer/Dialogos/Rojo" instance=ExtResource("19_0sb5m")]
+[node name="Delegado" parent="CanvasLayer/Dialogos/Rojo" instance_placeholder="res://AsambleaPorPartes/anto.tscn"]
 
 [node name="Posicion" type="Control" parent="CanvasLayer/Dialogos/Rojo"]
 layout_mode = 1
@@ -943,7 +940,7 @@ offset_bottom = 40.0
 script = ExtResource("6_ekcw6")
 metadata/_edit_use_anchors_ = true
 
-[node name="Delegado" parent="CanvasLayer/Dialogos/Verde" instance=ExtResource("20_e4ciw")]
+[node name="Delegado" parent="CanvasLayer/Dialogos/Verde" instance_placeholder="res://AsambleaPorPartes/bichito.tscn"]
 
 [node name="Posicion" type="Control" parent="CanvasLayer/Dialogos/Verde"]
 layout_mode = 1
@@ -1076,7 +1073,7 @@ script = ExtResource("10_7wo0l")
 [node name="Siluetas" parent="CanvasLayer" instance=ExtResource("20_un8jc")]
 unique_name_in_owner = true
 
-[node name="Sillas" parent="CanvasLayer" instance=ExtResource("21_iw6uh")]
+[node name="Sillas" parent="CanvasLayer" instance_placeholder="res://AsambleaPorPartes/sillas.tscn"]
 
 [node name="SillazosAnimados" parent="CanvasLayer" instance=ExtResource("22_jg7pl")]
 unique_name_in_owner = true

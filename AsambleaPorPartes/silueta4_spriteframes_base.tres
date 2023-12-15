@@ -1,0 +1,23 @@
+[gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://bu1n5jvw8asrq"]
+
+[ext_resource type="Texture2D" uid="uid://bwal6btyad0kq" path="res://assets/siluetas/Silueta 4/Angry/Silueta 4_00001.png" id="1_12m6x"]
+[ext_resource type="Texture2D" uid="uid://ne7j0ji65gex" path="res://assets/siluetas/Silueta 4/Idle/Silueta 4_00001.png" id="121_tcdgm"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_12m6x")
+}],
+"loop": true,
+"name": &"Angry",
+"speed": 24.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("121_tcdgm")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 24.0
+}]
