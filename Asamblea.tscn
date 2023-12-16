@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://cdu0pdab8ibpu"]
+[gd_scene load_steps=44 format=3 uid="uid://cdu0pdab8ibpu"]
 
 [ext_resource type="Script" path="res://Asamblea.gd" id="1_4bwin"]
 [ext_resource type="Script" path="res://ConfiguracionDelJuego.gd" id="1_lj83h"]
@@ -26,6 +26,7 @@
 [ext_resource type="PackedScene" uid="uid://clm5mipja132f" path="res://AsambleaPorPartes/siluetas.tscn" id="20_un8jc"]
 [ext_resource type="PackedScene" uid="uid://c2nv707ghu5wn" path="res://AsambleaPorPartes/sillas.tscn" id="21_iw6uh"]
 [ext_resource type="PackedScene" uid="uid://bj126ogg82hd8" path="res://AsambleaPorPartes/sillazos_animados.tscn" id="22_jg7pl"]
+[ext_resource type="Texture2D" uid="uid://eoaj48qi5xaw" path="res://assets/Arte/Placa Propuesta Ganadora - Feria.png" id="29_ta1x8"]
 [ext_resource type="Script" path="res://Epilogo.gd" id="2069_dhvms"]
 [ext_resource type="FontFile" uid="uid://cmoevjjpa8e0m" path="res://assets/fonts/Fonts logo y anuncios/my_coffee_break/My Coffee Break.ttf" id="2069_pmpfi"]
 [ext_resource type="AudioStream" uid="uid://cjv2cyfa76t25" path="res://assets/musica/Mocion de orden tema fondo.wav" id="2070_1jwdw"]
@@ -1154,7 +1155,6 @@ layer = 11
 script = ExtResource("2069_dhvms")
 
 [node name="Contenido" type="Control" parent="Epilogo"]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1163,14 +1163,15 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_rfvxo")
 
-[node name="ColorRect" type="ColorRect" parent="Epilogo/Contenido"]
+[node name="FondoEpilogo" type="TextureRect" parent="Epilogo/Contenido"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 1)
+texture = ExtResource("29_ta1x8")
 
 [node name="Titulo" type="RichTextLabel" parent="Epilogo/Contenido"]
 layout_mode = 1
@@ -1181,6 +1182,8 @@ offset_left = 187.0
 offset_top = 139.0
 offset_right = -191.0
 offset_bottom = -412.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
 theme_override_fonts/bold_font = ExtResource("2069_pmpfi")
 theme_override_font_sizes/normal_font_size = 80
 theme_override_font_sizes/bold_font_size = 80
@@ -1196,7 +1199,9 @@ offset_left = 187.0
 offset_top = 462.0
 offset_right = -191.0
 offset_bottom = 140.0
-theme_override_font_sizes/normal_font_size = 60
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/normal_font_size = 70
 text = "El evento fue un desastre, hubo gente que se agarró a las piñas, la facultad quedó sucia y el decano prohibió la realización de eventos en el patio. Intentá de nuevo con otra idea :(."
 
 [node name="Reintentar" type="Button" parent="Epilogo/Contenido"]

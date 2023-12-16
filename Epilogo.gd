@@ -5,6 +5,12 @@ extends CanvasLayer
 @onready var asamblea = get_parent()
 @onready var reintentar = $Contenido/Reintentar
 
+const Fondos = {
+	"Rojo": preload("res://assets/Arte/Placa Propuesta Ganadora - Choripaneada.png"),
+	"Celeste": preload("res://assets/Arte/Placa Propuesta Ganadora - Rifa.png"),
+	"Verde": preload("res://assets/Arte/Placa Propuesta Ganadora - Feria.png")
+}
+
 func _ready():
 	descripcion.visible_characters = 0
 	titulo.visible_characters = 0
@@ -17,6 +23,7 @@ func _ready():
 
 func mostrar_resultado(postura):
 	visible = true
+	%FondoEpilogo.texture = Fondos[postura]
 	titulo.text = ""
 	titulo.append_text("[center][b]Propuesta ganadora[/b][/center]")
 	titulo.newline()
